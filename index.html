@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Surprise Love</title>
+
 <style>
-body {
+body{
   margin:0;
-  font-family: "Comic Sans MS", "Arial", sans-serif;
-  background: linear-gradient(#ffb6c1,#ffc0cb);
+  font-family:"Comic Sans MS","Arial",sans-serif;
+  background:linear-gradient(#ffb6c1,#ffc0cb);
   display:flex;
   justify-content:center;
   align-items:center;
@@ -15,7 +16,7 @@ body {
   overflow:hidden;
 }
 
-.box {
+.box{
   background:white;
   border-radius:20px;
   padding:20px;
@@ -25,42 +26,23 @@ body {
   box-shadow:0 0 20px pink;
 }
 
-input,button {
-  font-size:20px;
+input,button{
+  font-size:18px;
   padding:10px;
-  margin:10px;
-  border-radius:10px;
+  margin:8px;
+  border-radius:12px;
   border:2px solid pink;
 }
 
-.menu button {
-  display:block;
-  width:100%;
-}
-
-.music-btn {
-  background: linear-gradient(#ff69b4,#ff1493);
+button{
+  background:#ff5c8a;
   color:white;
   border:none;
-  font-size:22px;
-  box-shadow:0 0 10px pink;
 }
 
-.heart {
-  position:fixed;
-  bottom:-20px;
-  color:red;
-  font-size:24px;
-  animation: float 5s linear infinite;
-}
-
-@keyframes float {
-  from {transform:translateY(0); opacity:1;}
-  to {transform:translateY(-100vh); opacity:0;}
-}
-  .grid-menu{
+.grid-menu{
   display:grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns:1fr 1fr;
   gap:12px;
   margin:15px 0;
 }
@@ -69,7 +51,6 @@ input,button {
   background:#fff0f5;
   border-radius:15px;
   padding:12px;
-  font-size:18px;
   cursor:pointer;
   box-shadow:0 0 8px pink;
   transition:0.2s;
@@ -85,110 +66,127 @@ input,button {
   margin:5px 0 0;
 }
 
-.back-btn{
-  width:100%;
-  background:#ff5c8a;
-  color:white;
-  border:none;
-  margin-top:10px;
+.heart{
+  position:fixed;
+  bottom:-20px;
+  color:red;
+  animation:float 5s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(0);opacity:1;}
+  to{transform:translateY(-100vh);opacity:0;}
 }
 </style>
 </head>
+
 <body>
 
 <audio id="bgm" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+<source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
 </audio>
 
-<!-- หน้า 1 ใส่รหัส -->
-<div class="box" id="menu" style="display:none;">
-  <h2>เลือกเมนู</h2>
-
-  <div class="grid-menu">
-    <div class="card" onclick="show('p1')">
-      📮
-      <p><b>ความทรงจำ</b><br>เรื่องราวเล็ก ๆ ของเรา</p>
-    </div>
-
-    <div class="card" onclick="show('p2')">
-      💌
-      <p><b>จดหมาย</b><br>ข้อความจากใจ</p>
-    </div>
-
-    <div class="card" onclick="show('p3')">
-      📝
-      <p><b>แบบทดสอบ</b><br>รู้จักเรามั้ย</p>
-    </div>
-
-    <div class="card" onclick="show('p4')">
-      🎂
-      <p><b>ช็อกโกแลต</b><br>สำหรับเธอ</p>
-    </div>
-
-    <div class="card" onclick="show('p5')">
-      ❤️
-      <p><b>คำสัญญา</b><br>เก็บไว้ตลอดไป</p>
-    </div>
-
-    <div class="card" onclick="show('p6')">
-      📷
-      <p><b>เพจของเรา</b><br>รูปและความทรงจำ</p>
-    </div>
-  </div>
-
-  <button class="back-btn" onclick="goMusic()">🎵 กลับหน้าเพลง</button>
-  <button class="back-btn" onclick="goHome()">🏠 กลับหน้าแรก</button>
+<!-- หน้า 1 -->
+<div class="box" id="screen1">
+<h2>🔐 ใส่รหัสรัก</h2>
+<input type="password" id="code" placeholder="4 หลัก">
+<br>
+<button onclick="check()">ยืนยัน</button>
 </div>
+
+<!-- หน้า 2 เพลง -->
+<div class="box" id="music" style="display:none;">
+<h2>🎵 เพลงของเรา</h2>
+<p>เปิดเพลงรักให้เรา 💕</p>
+<button onclick="playMusic()">▶ เปิดเพลง</button>
+<button onclick="pauseMusic()">⏸ หยุดเพลง</button>
+<br><br>
+<button onclick="goMenu()">💖 ไปหน้าเมนู</button>
+<button onclick="goHome()">🏠 กลับหน้าแรก</button>
+</div>
+
+<!-- เมนู -->
+<div class="box" id="menu" style="display:none;">
+<h2>เลือกเมนู</h2>
+
+<div class="grid-menu">
+<div class="card" onclick="show('p1')">📮<p>วันแรกที่เจอกัน</p></div>
+<div class="card" onclick="show('p2')">✈️<p>ทริปแรก</p></div>
+<div class="card" onclick="show('p3')">🌟<p>สิ่งที่ประทับใจ</p></div>
+<div class="card" onclick="show('p4')">🤫<p>ความลับ</p></div>
+<div class="card" onclick="show('p5')">🤝<p>คำสัญญา</p></div>
+<div class="card" onclick="show('p6')">💌<p>ถึงเธอ</p></div>
+</div>
+
+<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
+<button onclick="goHome()">🏠 กลับหน้าแรก</button>
+</div>
+
+<!-- หน้าเนื้อหา -->
+<div class="box" id="p1" style="display:none;">
+<h2>📅 วันแรก</h2>
+<p>เราเจอกันวันที่ฟ้าสดใส 💕</p>
+<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
+</div>
+
+<div class="box" id="p2" style="display:none;">
+<h2>✈️ ทริปแรก</h2>
+<p>หัวเราะทั้งทางเลย 🥰</p>
+<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
+</div>
+
+<div class="box" id="p3" style="display:none;">
+<h2>🌟 ประทับใจ</h2>
+<p>เธอใจดี น่ารัก ❤️</p>
+<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
+</div>
+
+<div class="box" id="p4" style="display:none;">
+<h2>🤫 ความลับ</h2>
+<p>เค้ารักเธอมากนะ</p>
+<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
+</div>
+
+<div class="box" id="p5" style="display:none;">
+<h2>🤝 คำสัญญา</h2>
+<p>จะดูแลเธอตลอดไป</p>
+<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
+</div>
+
+<div class="box" id="p6" style="display:none;">
+<h2>💌 ถึงเธอ</h2>
+<p>ขอบคุณที่เข้ามาในชีวิตเค้า</p>
+<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
+</div>
+
 <script>
 function hideAll(){
-  document.querySelectorAll(".box").forEach(b=>b.style.display="none");
+document.querySelectorAll(".box").forEach(b=>b.style.display="none");
 }
 
 function check(){
-  if(document.getElementById("code").value==="9999"){
-    hideAll();
-    document.getElementById("music").style.display="block";
-  } else {
-    alert("รหัสผิด 😝");
-  }
+if(code.value==="9999"){
+hideAll();
+music.style.display="block";
+}else{alert("รหัสผิด 😝");}
 }
 
-function playMusic(){
-  document.getElementById("bgm").play();
-}
+function goMusic(){hideAll();music.style.display="block";}
+function goMenu(){hideAll();menu.style.display="block";}
+function goHome(){hideAll();screen1.style.display="block";}
+function show(id){hideAll();document.getElementById(id).style.display="block";}
 
-function pauseMusic(){
-  document.getElementById("bgm").pause();
-}
-
-function goMenu(){
-  hideAll();
-  document.getElementById("menu").style.display="block";
-}
-
-function goMusic(){
-  hideAll();
-  document.getElementById("music").style.display="block";
-}
-
-function goHome(){
-  hideAll();
-  document.getElementById("screen1").style.display="block";
-}
-
-function show(id){
-  hideAll();
-  document.getElementById(id).style.display="block";
-}
+function playMusic(){bgm.play();}
+function pauseMusic(){bgm.pause();}
 
 setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerText="❤️";
-  h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(20+Math.random()*20)+"px";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),5000);
+let h=document.createElement("div");
+h.className="heart";
+h.innerText="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(20+Math.random()*20)+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),5000);
 },500);
 </script>
 

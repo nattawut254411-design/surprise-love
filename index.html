@@ -2,182 +2,195 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Surprise Love 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+<title>Surprise Love</title>
 <style>
-body{
+body {
   margin:0;
-  font-family:'Itim', cursive;
-  background: linear-gradient(#ffd6e8,#fff);
-  overflow:hidden;
-}
-.screen{
-  display:none;
-  height:100vh;
-  width:100vw;
+  font-family: "Comic Sans MS", "Arial", sans-serif;
+  background: linear-gradient(#ffb6c1,#ffc0cb);
+  display:flex;
   justify-content:center;
   align-items:center;
-  text-align:center;
+  height:100vh;
+  overflow:hidden;
 }
-.box{
+
+.box {
   background:white;
-  padding:20px;
   border-radius:20px;
-  box-shadow:0 0 15px pink;
+  padding:20px;
   width:90%;
   max-width:400px;
-  animation: pop 1s;
-}
-button{
-  padding:10px 20px;
-  border:none;
-  border-radius:20px;
-  background:#ff69b4;
-  color:white;
-  font-size:18px;
-  margin:5px;
-}
-input{
-  padding:10px;
-  border-radius:10px;
-  border:1px solid pink;
   text-align:center;
-  font-size:18px;
+  box-shadow:0 0 20px pink;
 }
-@keyframes pop{
-  from{transform:scale(0);}
-  to{transform:scale(1);}
+
+input,button {
+  font-size:20px;
+  padding:10px;
+  margin:10px;
+  border-radius:10px;
+  border:2px solid pink;
 }
-.heart{
+
+.menu button {
+  display:block;
+  width:100%;
+}
+
+.music-btn {
+  background: linear-gradient(#ff69b4,#ff1493);
+  color:white;
+  border:none;
+  font-size:22px;
+  box-shadow:0 0 10px pink;
+}
+
+.heart {
   position:fixed;
   bottom:-20px;
-  font-size:20px;
+  color:red;
+  font-size:24px;
   animation: float 5s linear infinite;
 }
-@keyframes float{
-  from{transform:translateY(0);}
-  to{transform:translateY(-110vh);}
+
+@keyframes float {
+  from {transform:translateY(0); opacity:1;}
+  to {transform:translateY(-100vh); opacity:0;}
 }
 </style>
 </head>
 <body>
 
 <audio id="bgm" loop>
-<source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
 </audio>
 
-<!-- หน้าใส่รหัส -->
-<div class="screen" id="s1" style="display:flex;">
-  <div class="box">
-    <h2>🔐 ใส่รหัสหัวใจ</h2>
-    <button onclick="playMusic()">🎵 เปิดเพลง</button>
-    <button onclick="pauseMusic()">🔇 ปิดเพลง</button>
-    <br><br>
-    <input type="password" id="code" placeholder="ใส่รหัส 4 หลัก">
-    <br><br>
-    <button onclick="check()">ยืนยัน</button>
-  </div>
+<!-- หน้า 1 ใส่รหัส -->
+<div class="box" id="screen1">
+  <h2>🔐 ใส่รหัสรัก</h2>
+  <input type="password" id="code" placeholder="4 หลัก">
+  <br>
+  <button onclick="check()">ยืนยัน</button>
+</div>
+
+<!-- หน้า 2 เพลง -->
+<div class="box" id="music" style="display:none;">
+  <h2>🎵 เพลงของเรา</h2>
+  <button class="music-btn" onclick="playMusic()">💖 เปิดเพลง</button>
+  <button class="music-btn" onclick="pauseMusic()">💔 ปิดเพลง</button>
+  <br>
+  <button onclick="goMenu()">➡ ไปเมนูความทรงจำ</button>
+  <button onclick="goHome()">🏠 กลับหน้าแรก</button>
 </div>
 
 <!-- เมนู -->
-<div class="screen" id="menu">
-  <div class="box">
-    <h2>💖 เลือกความทรงจำ</h2>
-    <button onclick="go('p1')">1️⃣ วันแรกที่เจอกัน</button><br>
-    <button onclick="go('p2')">2️⃣ ทริปแรก</button><br>
-    <button onclick="go('p3')">3️⃣ สิ่งที่ประทับใจ</button><br>
-    <button onclick="go('p4')">4️⃣ คำบอกรัก</button><br>
-    <button onclick="go('p5')">5️⃣ รูปความทรงจำ</button><br>
-    <button onclick="go('p6')">6️⃣ เซอร์ไพรส์</button>
+<div class="box" id="menu" style="display:none;">
+  <h2>💖 เมนูความทรงจำ</h2>
+  <div class="menu">
+    <button onclick="show('p1')">1. วันแรกที่เจอกัน</button>
+    <button onclick="show('p2')">2. ทริปแรกของเรา</button>
+    <button onclick="show('p3')">3. สิ่งที่ประทับใจในตัวคุณ</button>
+    <button onclick="show('p4')">4. ความลับของเรา</button>
+    <button onclick="show('p5')">5. คำสัญญา</button>
+    <button onclick="show('p6')">6. ถึงเธอ</button>
   </div>
+  <button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
 </div>
 
-<!-- หน้า 1 -->
-<div class="screen" id="p1">
-  <div class="box">
-    <h2>📅 วันแรกที่เจอกัน</h2>
-    <p>วันนั้นเป็นวันที่หัวใจเริ่มเต้นแรง 💓</p>
-    <button onclick="back()">⬅ กลับ</button>
-  </div>
+<div class="box" id="p1" style="display:none;">
+  <h2>📅 วันแรกที่เจอกัน</h2>
+  <p>เราเจอกันวันที่ฟ้าสดใส และเธอยิ้มให้ 💕</p>
+  <button onclick="goMenu()">⬅ กลับเมนู</button>
+  <button onclick="goMusic()">🎵 หน้าเพลง</button>
 </div>
 
-<!-- หน้า 2 -->
-<div class="screen" id="p2">
-  <div class="box">
-    <h2>🧳 ทริปแรก</h2>
-    <p>เราจำได้ทุกโมเมนต์เลย 🌈</p>
-    <button onclick="back()">⬅ กลับ</button>
-  </div>
+<div class="box" id="p2" style="display:none;">
+  <h2>✈️ ทริปแรก</h2>
+  <p>เรานั่งรถไปด้วยกัน หัวเราะทั้งทาง 🥰</p>
+  <button onclick="goMenu()">⬅ กลับเมนู</button>
+  <button onclick="goMusic()">🎵 หน้าเพลง</button>
 </div>
 
-<!-- หน้า 3 -->
-<div class="screen" id="p3">
-  <div class="box">
-    <h2>🌟 สิ่งที่ประทับใจ</h2>
-    <p>รอยยิ้มของเธอคือพลังของเรา 😊</p>
-    <button onclick="back()">⬅ กลับ</button>
-  </div>
+<div class="box" id="p3" style="display:none;">
+  <h2>🌟 สิ่งที่ประทับใจ</h2>
+  <p>เธอเป็นคนใจดี น่ารัก และอยู่ข้างกันเสมอ ❤️</p>
+  <button onclick="goMenu()">⬅ กลับเมนู</button>
+  <button onclick="goMusic()">🎵 หน้าเพลง</button>
 </div>
 
-<!-- หน้า 4 -->
-<div class="screen" id="p4">
-  <div class="box">
-    <h2>💌 คำบอกรัก</h2>
-    <p>รักเธอมากนะ อยู่ด้วยกันไปนานๆ ❤️</p>
-    <button onclick="back()">⬅ กลับ</button>
-  </div>
+<div class="box" id="p4" style="display:none;">
+  <h2>🤫 ความลับ</h2>
+  <p>จริงๆแล้วเค้ารักเธอมากนะ</p>
+  <button onclick="goMenu()">⬅ กลับเมนู</button>
+  <button onclick="goMusic()">🎵 หน้าเพลง</button>
 </div>
 
-<!-- หน้า 5 -->
-<div class="screen" id="p5">
-  <div class="box">
-    <h2>📸 ความทรงจำ</h2>
-    <p>ทุกภาพคือรอยยิ้มของเรา</p>
-    <button onclick="back()">⬅ กลับ</button>
-  </div>
+<div class="box" id="p5" style="display:none;">
+  <h2>🤝 คำสัญญา</h2>
+  <p>จะดูแลเธอให้ดีที่สุด</p>
+  <button onclick="goMenu()">⬅ กลับเมนู</button>
+  <button onclick="goMusic()">🎵 หน้าเพลง</button>
 </div>
 
-<!-- หน้า 6 -->
-<div class="screen" id="p6">
-  <div class="box">
-    <h2>🎁 เซอร์ไพรส์</h2>
-    <p>ขอบคุณที่เข้ามาในชีวิต 💖</p>
-    <button onclick="back()">⬅ กลับ</button>
-  </div>
+<div class="box" id="p6" style="display:none;">
+  <h2>💌 ถึงเธอ</h2>
+  <p>ขอบคุณที่เข้ามาในชีวิตเค้านะ</p>
+  <button onclick="goMenu()">⬅ กลับเมนู</button>
+  <button onclick="goMusic()">🎵 หน้าเพลง</button>
 </div>
 
 <script>
+function hideAll(){
+  document.querySelectorAll(".box").forEach(b=>b.style.display="none");
+}
+
 function check(){
-  if(code.value==="9999"){
-    show('menu');
-  }else{
+  if(document.getElementById("code").value==="9999"){
+    hideAll();
+    document.getElementById("music").style.display="block";
+  } else {
     alert("รหัสผิด 😝");
   }
 }
-function show(id){
-  document.querySelectorAll('.screen').forEach(s=>s.style.display='none');
-  document.getElementById(id).style.display='flex';
-}
-function go(id){ show(id); }
-function back(){ show('menu'); }
 
 function playMusic(){
-  bgm.play();
-}
-function pauseMusic(){
-  bgm.pause();
+  document.getElementById("bgm").play();
 }
 
-function heart(){
+function pauseMusic(){
+  document.getElementById("bgm").pause();
+}
+
+function goMenu(){
+  hideAll();
+  document.getElementById("menu").style.display="block";
+}
+
+function goMusic(){
+  hideAll();
+  document.getElementById("music").style.display="block";
+}
+
+function goHome(){
+  hideAll();
+  document.getElementById("screen1").style.display="block";
+}
+
+function show(id){
+  hideAll();
+  document.getElementById(id).style.display="block";
+}
+
+setInterval(()=>{
   let h=document.createElement("div");
   h.className="heart";
-  h.innerHTML="💖";
+  h.innerText="❤️";
   h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(3+Math.random()*3)+"s";
+  h.style.fontSize=(20+Math.random()*20)+"px";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),5000);
-}
-setInterval(heart,500);
+},500);
 </script>
 
 </body>

@@ -1,75 +1,168 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>เซอร์ไพรส์คนพิเศษ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise Love 💖</title>
 <style>
 body {
-  margin: 0;
-  font-family: sans-serif;
-  background: linear-gradient(#ffb6c1, #ffe4e1);
-  text-align: center;
+  margin:0;
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(#ffb6c1,#ffe4e1);
+  overflow:hidden;
 }
 .page {
-  display: none;
-  height: 100vh;
-  padding: 50px 20px;
+  display:none;
+  height:100vh;
+  width:100vw;
+  padding:20px;
+  box-sizing:border-box;
+  text-align:center;
+  animation: fade 0.8s;
 }
-.page.active {
-  display: block;
-}
+.active {display:block;}
 button {
-  padding: 12px 25px;
-  font-size: 18px;
-  border: none;
-  border-radius: 30px;
-  background: #ff4d6d;
-  color: white;
+  padding:12px 18px;
+  border:none;
+  border-radius:15px;
+  background:#ff4d6d;
+  color:white;
+  font-size:16px;
+  margin:8px;
 }
-h1 { font-size: 36px; }
-p { font-size: 22px; }
+input {
+  font-size:22px;
+  padding:10px;
+  width:150px;
+  text-align:center;
+}
+.menu button {
+  width:80%;
+}
+img {
+  width:40%;
+  border-radius:15px;
+  margin:10px;
+}
+@keyframes fade {
+  from{opacity:0} to{opacity:1}
+}
+.heart {
+  position:fixed;
+  color:red;
+  animation: float 5s linear infinite;
+}
+@keyframes float {
+  from {transform: translateY(100vh);}
+  to {transform: translateY(-10vh);}
+}
 </style>
 </head>
-
 <body>
 
-<div class="page active">
-  <h1>💌 ถึงคนพิเศษ</h1>
-  <p>มีบางอย่างอยากให้เธอรู้…</p>
-  <button onclick="nextPage()">ไปต่อ ➡️</button>
+<audio autoplay loop>
+<source src="https://cdn.pixabay.com/audio/2022/10/03/audio_2f6c0c7cc7.mp3" type="audio/mpeg">
+</audio>
+
+<div class="page active" id="p1">
+<h2>ใส่รหัสลับ 💌</h2>
+<input type="password" id="pass" maxlength="4"><br><br>
+<button onclick="checkPass()">เข้าสู่โลกของเรา</button>
 </div>
 
-<div class="page">
-  <h1>🌟 ขอบคุณนะ</h1>
-  <p>ขอบคุณที่เข้ามาในชีวิต</p>
-  <p>ทำให้ทุกวันมีรอยยิ้ม</p>
-  <button onclick="nextPage()">ไปต่อ ➡️</button>
+<div class="page" id="p2">
+<h2>เมนูความทรงจำ 💖</h2>
+<div class="menu">
+<button onclick="go('p3')">1️⃣ วันแรกที่เจอกัน</button>
+<button onclick="go('p4')">2️⃣ ทริปแรกที่ไป</button>
+<button onclick="go('p7')">3️⃣ สิ่งที่เราประทับใจในตัวคุณ</button>
+<button onclick="go('p8')">4️⃣ ความลับน่ารัก</button>
+<button onclick="go('p9')">5️⃣ คำสัญญา</button>
+<button onclick="go('p10')">6️⃣ หน้าสุดท้าย</button>
+</div>
 </div>
 
-<div class="page">
-  <h1>💖 อยากบอกว่า</h1>
-  <p>ไม่ว่าเจออะไร</p>
-  <p>ยังมีฉันอยู่ข้าง ๆ เสมอ</p>
-  <button onclick="nextPage()">ไปต่อ ➡️</button>
+<div class="page" id="p3">
+<h2>วันแรกที่เราเจอกัน 💕</h2>
+<p>วันนั้นอากาศดี เราได้คุยกันครั้งแรก  
+รอยยิ้มของคุณทำให้วันนั้นพิเศษขึ้นทันที 😊</p>
+<button onclick="go('p2')">กลับ</button>
 </div>
 
-<div class="page">
-  <h1>🎉 เซอร์ไพรส์!</h1>
-  <p>รักเธอนะ 💕</p>
-  <p>ขอให้วันนี้เป็นวันที่ดีมาก ๆ</p>
+<div class="page" id="p4">
+<h2>ทริปแรกของเรา 🚗</h2>
+<p>เลือกภาพที่เป็น "ทริปแรกของเรา"</p>
+<img src="https://picsum.photos/200?1" onclick="wrong()">
+<img src="https://picsum.photos/200?2" onclick="right()">
+<img src="https://picsum.photos/200?3" onclick="wrong()">
+<img src="https://picsum.photos/200?4" onclick="wrong()">
+</div>
+
+<div class="page" id="p5">
+<h2>คุณเลือกถูกแล้ว 🎉</h2>
+<p>วันนั้นเราสนุกมาก หัวเราะทั้งวัน  
+เป็นวันที่จำไม่ลืมเลย 💖</p>
+<button onclick="go('p2')">กลับเมนู</button>
+</div>
+
+<div class="page" id="p6">
+<h2>😡</h2>
+<p>เลือกผิดแล้วววว</p>
+<img src="https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif">
+<button onclick="go('p4')">ลองใหม่</button>
+</div>
+
+<div class="page" id="p7">
+<h2>สิ่งที่เราประทับใจในตัวคุณ 💗</h2>
+<p>คุณเป็นคนใจดี  
+อยู่ด้วยแล้วสบายใจ  
+และทำให้เรายิ้มได้ทุกวัน</p>
+<button onclick="go('p2')">กลับ</button>
+</div>
+
+<div class="page" id="p8">
+<h2>ความลับน่ารัก 🤫</h2>
+<p>จริงๆแล้ว…  
+เราชอบคุณมากกว่าที่คิดนะ ❤️</p>
+<button onclick="go('p2')">กลับ</button>
+</div>
+
+<div class="page" id="p9">
+<h2>คำสัญญา ✨</h2>
+<p>เราจะดูแลคุณ  
+จะอยู่ข้างๆ  
+และจะทำให้คุณยิ้มให้ได้เสมอ</p>
+<button onclick="go('p2')">กลับ</button>
+</div>
+
+<div class="page" id="p10">
+<h2>💖 รักคุณนะ 💖</h2>
+<p>ขอบคุณที่อยู่ด้วยกันจนถึงวันนี้</p>
+<button onclick="go('p2')">กลับเมนู</button>
 </div>
 
 <script>
-let currentPage = 0;
-const pages = document.querySelectorAll(".page");
-
-function nextPage() {
-  pages[currentPage].classList.remove("active");
-  currentPage++;
-  if (currentPage < pages.length) {
-    pages[currentPage].classList.add("active");
-  }
+function go(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
 }
+function checkPass(){
+let p=document.getElementById("pass").value;
+if(p==="9999"){go('p2');}
+else{alert("รหัสผิด 💔");}
+}
+function right(){go('p5')}
+function wrong(){go('p6')}
+
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=Math.random()*20+15+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),5000);
+},500);
 </script>
 
 </body>

@@ -3,232 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love Surprise 💖</title>
-
+<title>My Valentine 💖</title>
 <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
-
 <style>
-*{box-sizing:border-box;}
 body{
   margin:0;
   font-family:'Itim', cursive;
-  background:linear-gradient(135deg,#ff758c,#ff7eb3);
-  overflow:hidden;
-}
-
-.page{
-  display:none;
+  background:linear-gradient(#ffd6e8,#ffeef5);
   height:100vh;
-  width:100vw;
+  display:flex;
   justify-content:center;
   align-items:center;
-  text-align:center;
-  animation:fade 0.8s;
+  overflow:hidden;
 }
-
-.box{
+.card{
   background:white;
   border-radius:25px;
+  width:90%;
+  max-width:360px;
   padding:20px;
-  width:92%;
-  max-width:420px;
-  box-shadow:0 0 25px rgba(255,0,120,0.4);
-  border:4px solid #ff8fab;
-}
-
-h1,h2{
-  color:#ff3f7f;
-}
-
-p{
-  font-size:20px;
-  color:#444;
-}
-
-button{
-  width:100%;
-  padding:12px;
-  margin:6px 0;
-  border:none;
-  border-radius:20px;
-  background:#ff3f7f;
-  color:white;
-  font-size:18px;
-  transition:0.2s;
-}
-button:hover{transform:scale(1.05);}
-
-input{
-  padding:10px;
-  font-size:22px;
-  width:120px;
   text-align:center;
-  border-radius:15px;
-  border:2px solid pink;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  animation:fade 1s;
 }
-
-img.choice{
-  width:45%;
-  margin:5px;
-  border-radius:15px;
-  border:3px solid pink;
+h2{color:#e84a7a;}
+button{
+  background:#e84a7a;
+  border:none;
+  color:white;
+  padding:12px 20px;
+  border-radius:30px;
+  font-size:18px;
+  margin-top:15px;
 }
-
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.menu{
+  background:#ffe6ef;
+  border-radius:20px;
+  padding:10px;
+}
+input{
+  font-size:22px;
+  text-align:center;
+  width:100%;
+  padding:10px;
+  border-radius:15px;
+  border:2px solid #e84a7a;
+}
 .heart{
-  position:fixed;
-  bottom:-20px;
+  position:absolute;
+  bottom:-50px;
   font-size:24px;
-  animation:float 6s linear infinite;
+  animation:float 6s infinite;
 }
-
 @keyframes float{
   from{transform:translateY(0);opacity:1;}
-  to{transform:translateY(-120vh);opacity:0;}
+  to{transform:translateY(-800px);opacity:0;}
 }
-
 @keyframes fade{
-  from{opacity:0; transform:scale(0.8);}
-  to{opacity:1; transform:scale(1);}
+  from{opacity:0;transform:scale(0.9);}
+  to{opacity:1;}
 }
 </style>
 </head>
 
 <body>
 
-<audio id="bgm" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9a06f98f4d.mp3" type="audio/mpeg">
+<audio autoplay loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1c3f1c3fa5.mp3?filename=love-ambient-110624.mp3">
 </audio>
 
-<!-- หน้าใส่รหัส -->
-<div class="page" id="p1" style="display:flex;">
-<div class="box">
-<h1>🔐 ใส่รหัสลับ</h1>
-<p>Hint: วันพิเศษของเรา 💕</p>
-<input type="password" id="pass" maxlength="4"><br><br>
-<button onclick="checkPass()">เริ่มดูเซอร์ไพรส์</button>
-</div>
-</div>
-
-<!-- เมนู -->
-<div class="page" id="menu">
-<div class="box">
-<h2>💖 เรื่องราวของเรา</h2>
-<button onclick="go('p2')">1️⃣ วันแรกที่เจอกัน</button>
-<button onclick="go('p3')">2️⃣ ทริปแรกของเรา</button>
-<button onclick="go('p5')">3️⃣ สิ่งที่เราประทับใจในตัวคุณ</button>
-<button onclick="go('p6')">4️⃣ ความทรงจำดีๆ</button>
-<button onclick="go('p7')">5️⃣ คำสัญญา</button>
-<button onclick="go('p8')">6️⃣ รักเธอที่สุด</button>
-</div>
-</div>
-
-<!-- หน้า 2 -->
-<div class="page" id="p2">
-<div class="box">
-<h2>📅 วันแรกที่เจอกัน</h2>
-<p>วันนั้นเรายังไม่รู้เลยว่า  
-จะได้เจอคนพิเศษแบบคุณ  
-และรอยยิ้มคุณทำให้วันธรรมดา  
-กลายเป็นวันที่น่าจดจำ 💕</p>
-<button onclick="go('menu')">⬅ กลับเมนู</button>
-</div>
-</div>
-
-<!-- หน้า 3 -->
-<div class="page" id="p3">
-<div class="box">
-<h2>🌴 ทริปแรกของเรา</h2>
-<p>จำได้ไหม… เราไปที่ไหนกัน?</p>
-<button onclick="go('p4')">ตอบคำถาม</button>
-</div>
-</div>
-
-<!-- หน้าเกม -->
-<div class="page" id="p4">
-<div class="box">
-<h2>เลือกภาพที่ถูก 💗</h2>
-<img src="https://picsum.photos/200?1" class="choice" onclick="correct()">
-<img src="https://picsum.photos/200?2" class="choice" onclick="wrong()">
-<img src="https://picsum.photos/200?3" class="choice" onclick="wrong()">
-<img src="https://picsum.photos/200?4" class="choice" onclick="wrong()">
-</div>
-</div>
-
-<!-- หน้า 5 -->
-<div class="page" id="p5">
-<div class="box">
-<h2>💗 สิ่งที่เราประทับใจในตัวคุณ</h2>
-<p>คุณเป็นคนอบอุ่น  
-อยู่ด้วยแล้วรู้สึกสบายใจ  
-และเป็นพลังบวกในทุกๆวัน 🌈</p>
-<button onclick="go('menu')">⬅ กลับเมนู</button>
-</div>
-</div>
-
-<!-- หน้า 6 -->
-<div class="page" id="p6">
-<div class="box">
-<h2>✨ ความทรงจำดีๆ</h2>
-<p>ทุกช่วงเวลาที่มีคุณ  
-คือช่วงเวลาที่มีค่าเสมอ 💞</p>
-<button onclick="go('menu')">⬅ กลับเมนู</button>
-</div>
-</div>
-
-<!-- หน้า 7 -->
-<div class="page" id="p7">
-<div class="box">
-<h2>🤝 คำสัญญา</h2>
-<p>เราจะดูแลคุณให้ดีที่สุด  
-และจะอยู่ข้างๆคุณเสมอ 💖</p>
-<button onclick="go('menu')">⬅ กลับเมนู</button>
-</div>
-</div>
-
-<!-- หน้า 8 -->
-<div class="page" id="p8">
-<div class="box">
-<h2>💞 รักเธอที่สุด</h2>
-<p>ขอบคุณที่เข้ามาในชีวิต  
-และทำให้ทุกวันมีความหมาย 💕</p>
-</div>
-</div>
+<div id="app" class="card"></div>
 
 <script>
-function go(id){
-document.querySelectorAll('.page').forEach(p=>p.style.display='none');
-document.getElementById(id).style.display='flex';
+let app=document.getElementById("app");
+
+function hearts(){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"%";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+}
+setInterval(hearts,800);
+
+function login(){
+app.innerHTML=`
+<h2>🔒 ใส่รหัสผ่าน</h2>
+<p>คำใบ้: 9999</p>
+<input id="pw" type="password" maxlength="4"><br>
+<button onclick="check()">เข้าสู่โลกความรัก</button>
+`;
+}
+function check(){
+ if(document.getElementById("pw").value=="9999"){
+   menu();
+ }else{
+   alert("รหัสผิดนะ 💢");
+ }
 }
 
-function checkPass(){
-let p=document.getElementById("pass").value;
-if(p=="9999"){
-document.getElementById("bgm").play();
-go('menu');
-}else{
-alert("รหัสผิด 😝");
-}
-}
-
-function correct(){
-alert("เก่งมาก 💖 จำได้ด้วย");
-go('p5');
-}
-
-function wrong(){
-alert("😡 จำไม่ได้หรอ!");
+function menu(){
+app.innerHTML=`
+<h2>เลือกเมนู 💌</h2>
+<div class="grid">
+<div class="menu" onclick="page1()">💞<br>วันแรกที่เจอกัน</div>
+<div class="menu" onclick="page2()">✈️<br>ทริปแรก</div>
+<div class="menu" onclick="page3()">😍<br>สิ่งที่ประทับใจ</div>
+<div class="menu" onclick="page4()">📸<br>รูปของเรา</div>
+<div class="menu" onclick="page5()">🎁<br>ของขวัญ</div>
+<div class="menu" onclick="page6()">💬<br>ข้อความถึงเธอ</div>
+</div>
+<button onclick="login()">กลับหน้าแรก</button>
+`;
 }
 
-setInterval(()=>{
-let h=document.createElement("div");
-h.className="heart";
-h.innerHTML="💖";
-h.style.left=Math.random()*100+"vw";
-h.style.fontSize=(20+Math.random()*20)+"px";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),6000);
-},400);
+function page1(){
+app.innerHTML=`
+<h2>💞 วันแรกที่เจอกัน</h2>
+<p>วันที่เราบังเอิญเจอกัน โลกมันดูสดใสขึ้นทันที</p>
+<button onclick="menu()">ย้อนกลับ</button>
+`;
+}
+function page2(){
+app.innerHTML=`
+<h2>✈️ ทริปแรก</h2>
+<p>เลือกคำตอบให้ถูกนะ</p>
+<button onclick="alert('ถูกแล้ว 💖')">ทะเล</button>
+<button onclick="alert('ผิด 😡')">ภูเขา</button>
+<button onclick="alert('ผิด 😡')">ห้าง</button>
+<button onclick="alert('ผิด 😡')">บ้าน</button>
+<br><button onclick="menu()">ย้อนกลับ</button>
+`;
+}
+function page3(){
+app.innerHTML=`
+<h2>😍 สิ่งที่เราประทับใจ</h2>
+<p>รอยยิ้มของเธอคือพลังใจของเรา</p>
+<button onclick="menu()">ย้อนกลับ</button>
+`;
+}
+function page4(){
+app.innerHTML=`
+<h2>📸 รูปของเรา</h2>
+<p>เก็บทุกโมเมนต์ไว้ในหัวใจ</p>
+<button onclick="menu()">ย้อนกลับ</button>
+`;
+}
+function page5(){
+app.innerHTML=`
+<h2>🎁 ของขวัญ</h2>
+<p>หัวใจดวงนี้ให้เธอคนเดียว</p>
+<button onclick="menu()">ย้อนกลับ</button>
+`;
+}
+function page6(){
+app.innerHTML=`
+<h2>💬 ถึงเธอ</h2>
+<p>ขอบคุณที่เข้ามาในชีวิตนะ 💖</p>
+<button onclick="menu()">ย้อนกลับ</button>
+`;
+}
+
+login();
 </script>
-
 </body>
 </html>

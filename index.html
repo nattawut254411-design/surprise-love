@@ -3,227 +3,231 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surprise Love 💖</title>
+<title>Love Surprise 💖</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
 
 <style>
+*{box-sizing:border-box;}
 body{
   margin:0;
   font-family:'Itim', cursive;
-  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
   overflow:hidden;
 }
 
-/* จัดกลางจอ */
 .page{
   display:none;
   height:100vh;
   width:100vw;
-  display:flex;
   justify-content:center;
   align-items:center;
+  text-align:center;
   animation:fade 0.8s;
 }
-.active{display:flex;}
 
 .box{
-  background:rgba(255,255,255,0.9);
+  background:white;
   border-radius:25px;
-  padding:25px;
-  width:90%;
-  max-width:380px;
-  box-shadow:0 0 25px rgba(255,0,100,0.4);
-  text-align:center;
-  animation:pop 0.6s;
+  padding:20px;
+  width:92%;
+  max-width:420px;
+  box-shadow:0 0 25px rgba(255,0,120,0.4);
+  border:4px solid #ff8fab;
 }
 
-h2{
-  color:#ff2f6d;
-  font-size:28px;
+h1,h2{
+  color:#ff3f7f;
 }
+
 p{
-  font-size:18px;
+  font-size:20px;
+  color:#444;
 }
 
 button{
-  padding:12px 18px;
+  width:100%;
+  padding:12px;
+  margin:6px 0;
   border:none;
   border-radius:20px;
-  background:#ff4d6d;
+  background:#ff3f7f;
   color:white;
-  font-size:16px;
-  margin:8px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  font-size:18px;
+  transition:0.2s;
 }
+button:hover{transform:scale(1.05);}
 
 input{
-  font-size:22px;
   padding:10px;
-  width:160px;
+  font-size:22px;
+  width:120px;
+  text-align:center;
   border-radius:15px;
   border:2px solid pink;
-  text-align:center;
 }
 
-/* หัวใจ */
+img.choice{
+  width:45%;
+  margin:5px;
+  border-radius:15px;
+  border:3px solid pink;
+}
+
 .heart{
   position:fixed;
   bottom:-20px;
+  font-size:24px;
   animation:float 6s linear infinite;
-  opacity:0.8;
 }
+
 @keyframes float{
-  from{transform:translateY(0);}
-  to{transform:translateY(-120vh);}
+  from{transform:translateY(0);opacity:1;}
+  to{transform:translateY(-120vh);opacity:0;}
 }
 
-@keyframes fade{from{opacity:0}to{opacity:1}}
-@keyframes pop{from{transform:scale(0.5)}to{transform:scale(1)}}
-
-img{
-  width:40%;
-  border-radius:15px;
-  margin:5px;
+@keyframes fade{
+  from{opacity:0; transform:scale(0.8);}
+  to{opacity:1; transform:scale(1);}
 }
 </style>
 </head>
+
 <body>
 
 <audio id="bgm" loop>
-<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_77f3d6eec2.mp3" type="audio/mpeg">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9a06f98f4d.mp3" type="audio/mpeg">
 </audio>
 
-<div class="page active" id="p1">
+<!-- หน้าใส่รหัส -->
+<div class="page" id="p1" style="display:flex;">
 <div class="box">
-<h2>💌 ใส่รหัสลับ 💌</h2>
+<h1>🔐 ใส่รหัสลับ</h1>
+<p>Hint: วันพิเศษของเรา 💕</p>
 <input type="password" id="pass" maxlength="4"><br><br>
-<button onclick="startApp()">เข้าสู่โลกของเรา</button>
-<br><br>
-<button onclick="playMusic()">🎵 เปิดเพลง</button>
+<button onclick="checkPass()">เริ่มดูเซอร์ไพรส์</button>
 </div>
 </div>
 
+<!-- เมนู -->
+<div class="page" id="menu">
+<div class="box">
+<h2>💖 เรื่องราวของเรา</h2>
+<button onclick="go('p2')">1️⃣ วันแรกที่เจอกัน</button>
+<button onclick="go('p3')">2️⃣ ทริปแรกของเรา</button>
+<button onclick="go('p5')">3️⃣ สิ่งที่เราประทับใจในตัวคุณ</button>
+<button onclick="go('p6')">4️⃣ ความทรงจำดีๆ</button>
+<button onclick="go('p7')">5️⃣ คำสัญญา</button>
+<button onclick="go('p8')">6️⃣ รักเธอที่สุด</button>
+</div>
+</div>
+
+<!-- หน้า 2 -->
 <div class="page" id="p2">
 <div class="box">
-<h2>เมนูความทรงจำ 💖</h2>
-<button onclick="go('p3')">1️⃣ วันแรกที่เจอกัน</button>
-<button onclick="go('p4')">2️⃣ ทริปแรกที่ไป</button>
-<button onclick="go('p7')">3️⃣ สิ่งที่เราประทับใจในตัวคุณ</button>
-<button onclick="go('p8')">4️⃣ ความลับน่ารัก</button>
-<button onclick="go('p9')">5️⃣ คำสัญญา</button>
-<button onclick="go('p10')">6️⃣ หน้าสุดท้าย</button>
+<h2>📅 วันแรกที่เจอกัน</h2>
+<p>วันนั้นเรายังไม่รู้เลยว่า  
+จะได้เจอคนพิเศษแบบคุณ  
+และรอยยิ้มคุณทำให้วันธรรมดา  
+กลายเป็นวันที่น่าจดจำ 💕</p>
+<button onclick="go('menu')">⬅ กลับเมนู</button>
 </div>
 </div>
 
+<!-- หน้า 3 -->
 <div class="page" id="p3">
 <div class="box">
-<h2>วันแรกที่เราเจอกัน 💕</h2>
-<p>วันนั้นอากาศดี  
-เราได้คุยกันครั้งแรก  
-รอยยิ้มของคุณทำให้หัวใจเราเต้นแรง 💓</p>
-<button onclick="go('p2')">กลับ</button>
+<h2>🌴 ทริปแรกของเรา</h2>
+<p>จำได้ไหม… เราไปที่ไหนกัน?</p>
+<button onclick="go('p4')">ตอบคำถาม</button>
 </div>
 </div>
 
+<!-- หน้าเกม -->
 <div class="page" id="p4">
 <div class="box">
-<h2>ทริปแรกของเรา 🚗</h2>
-<p>เลือกภาพที่ถูกต้อง</p>
-<img src="https://picsum.photos/200?1" onclick="wrong()">
-<img src="https://picsum.photos/200?2" onclick="right()">
-<img src="https://picsum.photos/200?3" onclick="wrong()">
-<img src="https://picsum.photos/200?4" onclick="wrong()">
+<h2>เลือกภาพที่ถูก 💗</h2>
+<img src="https://picsum.photos/200?1" class="choice" onclick="correct()">
+<img src="https://picsum.photos/200?2" class="choice" onclick="wrong()">
+<img src="https://picsum.photos/200?3" class="choice" onclick="wrong()">
+<img src="https://picsum.photos/200?4" class="choice" onclick="wrong()">
 </div>
 </div>
 
+<!-- หน้า 5 -->
 <div class="page" id="p5">
 <div class="box">
-<h2>ถูกต้องแล้ว 🎉</h2>
-<p>วันนั้นสนุกมาก  
-เป็นความทรงจำที่ดีที่สุด 💖</p>
-<button onclick="go('p2')">กลับเมนู</button>
+<h2>💗 สิ่งที่เราประทับใจในตัวคุณ</h2>
+<p>คุณเป็นคนอบอุ่น  
+อยู่ด้วยแล้วรู้สึกสบายใจ  
+และเป็นพลังบวกในทุกๆวัน 🌈</p>
+<button onclick="go('menu')">⬅ กลับเมนู</button>
 </div>
 </div>
 
+<!-- หน้า 6 -->
 <div class="page" id="p6">
 <div class="box">
-<h2>😡</h2>
-<p>เลือกผิดแล้ว!</p>
-<img src="https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif" width="120">
-<button onclick="go('p4')">ลองใหม่</button>
+<h2>✨ ความทรงจำดีๆ</h2>
+<p>ทุกช่วงเวลาที่มีคุณ  
+คือช่วงเวลาที่มีค่าเสมอ 💞</p>
+<button onclick="go('menu')">⬅ กลับเมนู</button>
 </div>
 </div>
 
+<!-- หน้า 7 -->
 <div class="page" id="p7">
 <div class="box">
-<h2>สิ่งที่เราประทับใจในตัวคุณ 💗</h2>
-<p>คุณเป็นคนอบอุ่น  
-อยู่ด้วยแล้วรู้สึกปลอดภัย  
-และทำให้เรายิ้มได้เสมอ 😊</p>
-<button onclick="go('p2')">กลับ</button>
+<h2>🤝 คำสัญญา</h2>
+<p>เราจะดูแลคุณให้ดีที่สุด  
+และจะอยู่ข้างๆคุณเสมอ 💖</p>
+<button onclick="go('menu')">⬅ กลับเมนู</button>
 </div>
 </div>
 
+<!-- หน้า 8 -->
 <div class="page" id="p8">
 <div class="box">
-<h2>ความลับน่ารัก 🤫</h2>
-<p>จริงๆแล้ว…  
-เราชอบคุณมาก  
-มากกว่าที่คุณคิด ❤️</p>
-<button onclick="go('p2')">กลับ</button>
-</div>
-</div>
-
-<div class="page" id="p9">
-<div class="box">
-<h2>คำสัญญา ✨</h2>
-<p>เราจะดูแลคุณ  
-จะไม่ปล่อยมือ  
-และจะอยู่ข้างๆคุณเสมอ 💕</p>
-<button onclick="go('p2')">กลับ</button>
-</div>
-</div>
-
-<div class="page" id="p10">
-<div class="box">
-<h2>💖 รักคุณนะ 💖</h2>
-<p>ขอบคุณที่อยู่ด้วยกัน  
-และหวังว่าจะอยู่ไปอีกนานๆ 🥰</p>
-<button onclick="go('p2')">กลับเมนู</button>
+<h2>💞 รักเธอที่สุด</h2>
+<p>ขอบคุณที่เข้ามาในชีวิต  
+และทำให้ทุกวันมีความหมาย 💕</p>
 </div>
 </div>
 
 <script>
 function go(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
+document.querySelectorAll('.page').forEach(p=>p.style.display='none');
+document.getElementById(id).style.display='flex';
 }
 
-function startApp(){
+function checkPass(){
 let p=document.getElementById("pass").value;
-if(p==="9999"){go('p2');}
-else{alert("รหัสผิดนะ 💔");}
-}
-
-function right(){go('p5')}
-function wrong(){go('p6')}
-
-/* เปิดเพลง (มือถือบังคับให้กด) */
-function playMusic(){
+if(p=="9999"){
 document.getElementById("bgm").play();
+go('menu');
+}else{
+alert("รหัสผิด 😝");
+}
 }
 
-/* หัวใจลอย */
+function correct(){
+alert("เก่งมาก 💖 จำได้ด้วย");
+go('p5');
+}
+
+function wrong(){
+alert("😡 จำไม่ได้หรอ!");
+}
+
 setInterval(()=>{
 let h=document.createElement("div");
 h.className="heart";
 h.innerHTML="💖";
 h.style.left=Math.random()*100+"vw";
-h.style.fontSize=Math.random()*20+15+"px";
+h.style.fontSize=(20+Math.random()*20)+"px";
 document.body.appendChild(h);
 setTimeout(()=>h.remove(),6000);
-},250);
+},400);
 </script>
 
 </body>

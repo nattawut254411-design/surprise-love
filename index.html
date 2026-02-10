@@ -2,175 +2,183 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Valentine 💖</title>
+<title>Surprise Love 💖</title>
 <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
 <style>
 body{
   margin:0;
   font-family:'Itim', cursive;
-  background:linear-gradient(#ffd6e8,#ffeef5);
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  background: linear-gradient(#ffd6e8,#fff);
   overflow:hidden;
 }
-.card{
-  background:white;
-  border-radius:25px;
-  width:90%;
-  max-width:360px;
-  padding:20px;
+.screen{
+  display:none;
+  height:100vh;
+  width:100vw;
+  justify-content:center;
+  align-items:center;
   text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,0.15);
-  animation:fade 1s;
 }
-h2{color:#e84a7a;}
-button{
-  background:#e84a7a;
-  border:none;
-  color:white;
-  padding:12px 20px;
-  border-radius:30px;
-  font-size:18px;
-  margin-top:15px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-.menu{
-  background:#ffe6ef;
+.box{
+  background:white;
+  padding:20px;
   border-radius:20px;
-  padding:10px;
+  box-shadow:0 0 15px pink;
+  width:90%;
+  max-width:400px;
+  animation: pop 1s;
+}
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff69b4;
+  color:white;
+  font-size:18px;
+  margin:5px;
 }
 input{
-  font-size:22px;
-  text-align:center;
-  width:100%;
   padding:10px;
-  border-radius:15px;
-  border:2px solid #e84a7a;
+  border-radius:10px;
+  border:1px solid pink;
+  text-align:center;
+  font-size:18px;
+}
+@keyframes pop{
+  from{transform:scale(0);}
+  to{transform:scale(1);}
 }
 .heart{
-  position:absolute;
-  bottom:-50px;
-  font-size:24px;
-  animation:float 6s infinite;
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation: float 5s linear infinite;
 }
 @keyframes float{
-  from{transform:translateY(0);opacity:1;}
-  to{transform:translateY(-800px);opacity:0;}
-}
-@keyframes fade{
-  from{opacity:0;transform:scale(0.9);}
-  to{opacity:1;}
+  from{transform:translateY(0);}
+  to{transform:translateY(-110vh);}
 }
 </style>
 </head>
-
 <body>
 
-<audio autoplay loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1c3f1c3fa5.mp3?filename=love-ambient-110624.mp3">
+<audio id="bgm" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
 </audio>
 
-<div id="app" class="card"></div>
+<!-- หน้าใส่รหัส -->
+<div class="screen" id="s1" style="display:flex;">
+  <div class="box">
+    <h2>🔐 ใส่รหัสหัวใจ</h2>
+    <button onclick="playMusic()">🎵 เปิดเพลง</button>
+    <button onclick="pauseMusic()">🔇 ปิดเพลง</button>
+    <br><br>
+    <input type="password" id="code" placeholder="ใส่รหัส 4 หลัก">
+    <br><br>
+    <button onclick="check()">ยืนยัน</button>
+  </div>
+</div>
+
+<!-- เมนู -->
+<div class="screen" id="menu">
+  <div class="box">
+    <h2>💖 เลือกความทรงจำ</h2>
+    <button onclick="go('p1')">1️⃣ วันแรกที่เจอกัน</button><br>
+    <button onclick="go('p2')">2️⃣ ทริปแรก</button><br>
+    <button onclick="go('p3')">3️⃣ สิ่งที่ประทับใจ</button><br>
+    <button onclick="go('p4')">4️⃣ คำบอกรัก</button><br>
+    <button onclick="go('p5')">5️⃣ รูปความทรงจำ</button><br>
+    <button onclick="go('p6')">6️⃣ เซอร์ไพรส์</button>
+  </div>
+</div>
+
+<!-- หน้า 1 -->
+<div class="screen" id="p1">
+  <div class="box">
+    <h2>📅 วันแรกที่เจอกัน</h2>
+    <p>วันนั้นเป็นวันที่หัวใจเริ่มเต้นแรง 💓</p>
+    <button onclick="back()">⬅ กลับ</button>
+  </div>
+</div>
+
+<!-- หน้า 2 -->
+<div class="screen" id="p2">
+  <div class="box">
+    <h2>🧳 ทริปแรก</h2>
+    <p>เราจำได้ทุกโมเมนต์เลย 🌈</p>
+    <button onclick="back()">⬅ กลับ</button>
+  </div>
+</div>
+
+<!-- หน้า 3 -->
+<div class="screen" id="p3">
+  <div class="box">
+    <h2>🌟 สิ่งที่ประทับใจ</h2>
+    <p>รอยยิ้มของเธอคือพลังของเรา 😊</p>
+    <button onclick="back()">⬅ กลับ</button>
+  </div>
+</div>
+
+<!-- หน้า 4 -->
+<div class="screen" id="p4">
+  <div class="box">
+    <h2>💌 คำบอกรัก</h2>
+    <p>รักเธอมากนะ อยู่ด้วยกันไปนานๆ ❤️</p>
+    <button onclick="back()">⬅ กลับ</button>
+  </div>
+</div>
+
+<!-- หน้า 5 -->
+<div class="screen" id="p5">
+  <div class="box">
+    <h2>📸 ความทรงจำ</h2>
+    <p>ทุกภาพคือรอยยิ้มของเรา</p>
+    <button onclick="back()">⬅ กลับ</button>
+  </div>
+</div>
+
+<!-- หน้า 6 -->
+<div class="screen" id="p6">
+  <div class="box">
+    <h2>🎁 เซอร์ไพรส์</h2>
+    <p>ขอบคุณที่เข้ามาในชีวิต 💖</p>
+    <button onclick="back()">⬅ กลับ</button>
+  </div>
+</div>
 
 <script>
-let app=document.getElementById("app");
+function check(){
+  if(code.value==="9999"){
+    show('menu');
+  }else{
+    alert("รหัสผิด 😝");
+  }
+}
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.style.display='none');
+  document.getElementById(id).style.display='flex';
+}
+function go(id){ show(id); }
+function back(){ show('menu'); }
 
-function hearts(){
+function playMusic(){
+  bgm.play();
+}
+function pauseMusic(){
+  bgm.pause();
+}
+
+function heart(){
   let h=document.createElement("div");
   h.className="heart";
   h.innerHTML="💖";
-  h.style.left=Math.random()*100+"%";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(3+Math.random()*3)+"s";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
+  setTimeout(()=>h.remove(),5000);
 }
-setInterval(hearts,800);
-
-function login(){
-app.innerHTML=`
-<h2>🔒 ใส่รหัสผ่าน</h2>
-<p>คำใบ้: 9999</p>
-<input id="pw" type="password" maxlength="4"><br>
-<button onclick="check()">เข้าสู่โลกความรัก</button>
-`;
-}
-function check(){
- if(document.getElementById("pw").value=="9999"){
-   menu();
- }else{
-   alert("รหัสผิดนะ 💢");
- }
-}
-
-function menu(){
-app.innerHTML=`
-<h2>เลือกเมนู 💌</h2>
-<div class="grid">
-<div class="menu" onclick="page1()">💞<br>วันแรกที่เจอกัน</div>
-<div class="menu" onclick="page2()">✈️<br>ทริปแรก</div>
-<div class="menu" onclick="page3()">😍<br>สิ่งที่ประทับใจ</div>
-<div class="menu" onclick="page4()">📸<br>รูปของเรา</div>
-<div class="menu" onclick="page5()">🎁<br>ของขวัญ</div>
-<div class="menu" onclick="page6()">💬<br>ข้อความถึงเธอ</div>
-</div>
-<button onclick="login()">กลับหน้าแรก</button>
-`;
-}
-
-function page1(){
-app.innerHTML=`
-<h2>💞 วันแรกที่เจอกัน</h2>
-<p>วันที่เราบังเอิญเจอกัน โลกมันดูสดใสขึ้นทันที</p>
-<button onclick="menu()">ย้อนกลับ</button>
-`;
-}
-function page2(){
-app.innerHTML=`
-<h2>✈️ ทริปแรก</h2>
-<p>เลือกคำตอบให้ถูกนะ</p>
-<button onclick="alert('ถูกแล้ว 💖')">ทะเล</button>
-<button onclick="alert('ผิด 😡')">ภูเขา</button>
-<button onclick="alert('ผิด 😡')">ห้าง</button>
-<button onclick="alert('ผิด 😡')">บ้าน</button>
-<br><button onclick="menu()">ย้อนกลับ</button>
-`;
-}
-function page3(){
-app.innerHTML=`
-<h2>😍 สิ่งที่เราประทับใจ</h2>
-<p>รอยยิ้มของเธอคือพลังใจของเรา</p>
-<button onclick="menu()">ย้อนกลับ</button>
-`;
-}
-function page4(){
-app.innerHTML=`
-<h2>📸 รูปของเรา</h2>
-<p>เก็บทุกโมเมนต์ไว้ในหัวใจ</p>
-<button onclick="menu()">ย้อนกลับ</button>
-`;
-}
-function page5(){
-app.innerHTML=`
-<h2>🎁 ของขวัญ</h2>
-<p>หัวใจดวงนี้ให้เธอคนเดียว</p>
-<button onclick="menu()">ย้อนกลับ</button>
-`;
-}
-function page6(){
-app.innerHTML=`
-<h2>💬 ถึงเธอ</h2>
-<p>ขอบคุณที่เข้ามาในชีวิตนะ 💖</p>
-<button onclick="menu()">ย้อนกลับ</button>
-`;
-}
-
-login();
+setInterval(heart,500);
 </script>
+
 </body>
 </html>

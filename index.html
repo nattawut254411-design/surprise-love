@@ -58,6 +58,40 @@ input,button {
   from {transform:translateY(0); opacity:1;}
   to {transform:translateY(-100vh); opacity:0;}
 }
+  .grid-menu{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+  margin:15px 0;
+}
+
+.card{
+  background:#fff0f5;
+  border-radius:15px;
+  padding:12px;
+  font-size:18px;
+  cursor:pointer;
+  box-shadow:0 0 8px pink;
+  transition:0.2s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  background:#ffe4ec;
+}
+
+.card p{
+  font-size:14px;
+  margin:5px 0 0;
+}
+
+.back-btn{
+  width:100%;
+  background:#ff5c8a;
+  color:white;
+  border:none;
+  margin-top:10px;
+}
 </style>
 </head>
 <body>
@@ -67,79 +101,44 @@ input,button {
 </audio>
 
 <!-- หน้า 1 ใส่รหัส -->
-<div class="box" id="screen1">
-  <h2>🔐 ใส่รหัสรัก</h2>
-  <input type="password" id="code" placeholder="4 หลัก">
-  <br>
-  <button onclick="check()">ยืนยัน</button>
-</div>
-
-<!-- หน้า 2 เพลง -->
-<div class="box" id="music" style="display:none;">
-  <h2>🎵 เพลงของเรา</h2>
-  <button class="music-btn" onclick="playMusic()">💖 เปิดเพลง</button>
-  <button class="music-btn" onclick="pauseMusic()">💔 ปิดเพลง</button>
-  <br>
-  <button onclick="goMenu()">➡ ไปเมนูความทรงจำ</button>
-  <button onclick="goHome()">🏠 กลับหน้าแรก</button>
-</div>
-
-<!-- เมนู -->
 <div class="box" id="menu" style="display:none;">
-  <h2>💖 เมนูความทรงจำ</h2>
-  <div class="menu">
-    <button onclick="show('p1')">1. วันแรกที่เจอกัน</button>
-    <button onclick="show('p2')">2. ทริปแรกของเรา</button>
-    <button onclick="show('p3')">3. สิ่งที่ประทับใจในตัวคุณ</button>
-    <button onclick="show('p4')">4. ความลับของเรา</button>
-    <button onclick="show('p5')">5. คำสัญญา</button>
-    <button onclick="show('p6')">6. ถึงเธอ</button>
+  <h2>เลือกเมนู</h2>
+
+  <div class="grid-menu">
+    <div class="card" onclick="show('p1')">
+      📮
+      <p><b>ความทรงจำ</b><br>เรื่องราวเล็ก ๆ ของเรา</p>
+    </div>
+
+    <div class="card" onclick="show('p2')">
+      💌
+      <p><b>จดหมาย</b><br>ข้อความจากใจ</p>
+    </div>
+
+    <div class="card" onclick="show('p3')">
+      📝
+      <p><b>แบบทดสอบ</b><br>รู้จักเรามั้ย</p>
+    </div>
+
+    <div class="card" onclick="show('p4')">
+      🎂
+      <p><b>ช็อกโกแลต</b><br>สำหรับเธอ</p>
+    </div>
+
+    <div class="card" onclick="show('p5')">
+      ❤️
+      <p><b>คำสัญญา</b><br>เก็บไว้ตลอดไป</p>
+    </div>
+
+    <div class="card" onclick="show('p6')">
+      📷
+      <p><b>เพจของเรา</b><br>รูปและความทรงจำ</p>
+    </div>
   </div>
-  <button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
-</div>
 
-<div class="box" id="p1" style="display:none;">
-  <h2>📅 วันแรกที่เจอกัน</h2>
-  <p>เราเจอกันวันที่ฟ้าสดใส และเธอยิ้มให้ 💕</p>
-  <button onclick="goMenu()">⬅ กลับเมนู</button>
-  <button onclick="goMusic()">🎵 หน้าเพลง</button>
+  <button class="back-btn" onclick="goMusic()">🎵 กลับหน้าเพลง</button>
+  <button class="back-btn" onclick="goHome()">🏠 กลับหน้าแรก</button>
 </div>
-
-<div class="box" id="p2" style="display:none;">
-  <h2>✈️ ทริปแรก</h2>
-  <p>เรานั่งรถไปด้วยกัน หัวเราะทั้งทาง 🥰</p>
-  <button onclick="goMenu()">⬅ กลับเมนู</button>
-  <button onclick="goMusic()">🎵 หน้าเพลง</button>
-</div>
-
-<div class="box" id="p3" style="display:none;">
-  <h2>🌟 สิ่งที่ประทับใจ</h2>
-  <p>เธอเป็นคนใจดี น่ารัก และอยู่ข้างกันเสมอ ❤️</p>
-  <button onclick="goMenu()">⬅ กลับเมนู</button>
-  <button onclick="goMusic()">🎵 หน้าเพลง</button>
-</div>
-
-<div class="box" id="p4" style="display:none;">
-  <h2>🤫 ความลับ</h2>
-  <p>จริงๆแล้วเค้ารักเธอมากนะ</p>
-  <button onclick="goMenu()">⬅ กลับเมนู</button>
-  <button onclick="goMusic()">🎵 หน้าเพลง</button>
-</div>
-
-<div class="box" id="p5" style="display:none;">
-  <h2>🤝 คำสัญญา</h2>
-  <p>จะดูแลเธอให้ดีที่สุด</p>
-  <button onclick="goMenu()">⬅ กลับเมนู</button>
-  <button onclick="goMusic()">🎵 หน้าเพลง</button>
-</div>
-
-<div class="box" id="p6" style="display:none;">
-  <h2>💌 ถึงเธอ</h2>
-  <p>ขอบคุณที่เข้ามาในชีวิตเค้านะ</p>
-  <button onclick="goMenu()">⬅ กลับเมนู</button>
-  <button onclick="goMusic()">🎵 หน้าเพลง</button>
-</div>
-
 <script>
 function hideAll(){
   document.querySelectorAll(".box").forEach(b=>b.style.display="none");

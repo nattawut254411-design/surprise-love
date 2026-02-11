@@ -2,80 +2,77 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>Surprise Love</title>
-
+<title>ของขวัญให้แฟน 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;600&display=swap" rel="stylesheet">
 <style>
 body{
-  margin:0;
-  font-family:"Comic Sans MS","Arial",sans-serif;
-  background:linear-gradient(#ffb6c1,#ffc0cb);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  overflow:hidden;
+margin:0;
+font-family:'Mali',cursive;
+background:linear-gradient(#ffd6e8,#ffeef5);
+overflow:hidden;
 }
-
+.page{
+display:none;
+height:100vh;
+text-align:center;
+padding:20px;
+}
+.active{display:block;}
 .box{
-  background:white;
-  border-radius:20px;
-  padding:20px;
-  width:90%;
-  max-width:400px;
-  text-align:center;
-  box-shadow:0 0 20px pink;
+background:white;
+border-radius:25px;
+padding:20px;
+max-width:350px;
+margin:auto;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
 }
-
-input,button{
-  font-size:18px;
-  padding:10px;
-  margin:8px;
-  border-radius:12px;
-  border:2px solid pink;
-}
-
 button{
-  background:#ff5c8a;
-  color:white;
-  border:none;
+background:#ff5b9d;
+color:white;
+border:none;
+border-radius:20px;
+padding:12px 20px;
+margin:10px;
+font-size:18px;
+cursor:pointer;
 }
-
-.grid-menu{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin:15px 0;
-}
-
 .card{
-  background:#fff0f5;
-  border-radius:15px;
-  padding:12px;
-  cursor:pointer;
-  box-shadow:0 0 8px pink;
-  transition:0.2s;
+background:#ffe6f0;
+border-radius:20px;
+padding:15px;
+margin:10px;
+box-shadow:0 3px 8px rgba(0,0,0,.2);
 }
-
-.card:hover{
-  transform:scale(1.05);
-  background:#ffe4ec;
+.menu{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
 }
-
-.card p{
-  font-size:14px;
-  margin:5px 0 0;
+input{
+padding:10px;
+font-size:18px;
+border-radius:15px;
+border:1px solid #ccc;
 }
-
 .heart{
-  position:fixed;
-  bottom:-20px;
-  color:red;
-  animation:float 5s linear infinite;
+position:fixed;
+bottom:-20px;
+font-size:20px;
+animation:float 5s linear infinite;
 }
-
 @keyframes float{
-  from{transform:translateY(0);opacity:1;}
-  to{transform:translateY(-100vh);opacity:0;}
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-800px);opacity:0;}
+}
+.music-btn{
+position:fixed;
+top:10px;
+right:10px;
+background:#ff5b9d;
+border-radius:50%;
+width:60px;
+height:60px;
+font-size:24px;
 }
 </style>
 </head>
@@ -83,111 +80,99 @@ button{
 <body>
 
 <audio id="bgm" loop>
-<source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+<source src="https://cdn.pixabay.com/audio/2023/03/30/audio_37bdfc7d75.mp3" type="audio/mpeg">
 </audio>
 
-<!-- หน้า 1 -->
-<div class="box" id="screen1">
-<h2>🔐 ใส่รหัสรัก</h2>
-<input type="password" id="code" placeholder="4 หลัก">
-<br>
-<button onclick="check()">ยืนยัน</button>
-</div>
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
 
-<!-- หน้า 2 เพลง -->
-<div class="box" id="music" style="display:none;">
-<h2>🎵 เพลงของเรา</h2>
-<p>เปิดเพลงรักให้เรา 💕</p>
-<button onclick="playMusic()">▶ เปิดเพลง</button>
-<button onclick="pauseMusic()">⏸ หยุดเพลง</button>
+<div id="page1" class="page active">
+<div class="box">
+<h2>ใส่รหัสลับ 💌</h2>
+<input id="pass" type="password" placeholder="รหัสคือวันที่เราคบกัน">
 <br><br>
-<button onclick="goMenu()">💖 ไปหน้าเมนู</button>
-<button onclick="goHome()">🏠 กลับหน้าแรก</button>
+<button onclick="checkPass()">เข้าสู่โลกของเรา</button>
+</div>
 </div>
 
-<!-- เมนู -->
-<div class="box" id="menu" style="display:none;">
-<h2>เลือกเมนู</h2>
-
-<div class="grid-menu">
-<div class="card" onclick="show('p1')">📮<p>วันแรกที่เจอกัน</p></div>
-<div class="card" onclick="show('p2')">✈️<p>ทริปแรก</p></div>
-<div class="card" onclick="show('p3')">🌟<p>สิ่งที่ประทับใจ</p></div>
-<div class="card" onclick="show('p4')">🤫<p>ความลับ</p></div>
-<div class="card" onclick="show('p5')">🤝<p>คำสัญญา</p></div>
-<div class="card" onclick="show('p6')">💌<p>ถึงเธอ</p></div>
+<div id="page2" class="page">
+<div class="box">
+<h2>เลือกเมนู 💕</h2>
+<div class="menu">
+<div class="card" onclick="go(3)">📸<br>ความทรงจำ</div>
+<div class="card" onclick="go(4)">💌<br>จดหมาย</div>
+<div class="card" onclick="go(5)">🎂<br>เซอร์ไพรส์</div>
+<div class="card" onclick="go(6)">❤️<br>คำบอกรัก</div>
+</div>
+<button onclick="go(1)">กลับหน้าแรก</button>
+</div>
 </div>
 
-<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
-<button onclick="goHome()">🏠 กลับหน้าแรก</button>
+<div id="page3" class="page">
+<div class="box">
+<h2>📸 ความทรงจำ</h2>
+<p>ทุกช่วงเวลาที่มีเธอคือของขวัญ</p>
+<button onclick="go(2)">กลับเมนู</button>
+</div>
 </div>
 
-<!-- หน้าเนื้อหา -->
-<div class="box" id="p1" style="display:none;">
-<h2>📅 วันแรก</h2>
-<p>เราเจอกันวันที่ฟ้าสดใส 💕</p>
-<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
+<div id="page4" class="page">
+<div class="box">
+<h2>💌 จดหมายถึงเธอ</h2>
+<p>ขอบคุณที่เข้ามาในชีวิตนะ 💖</p>
+<button onclick="go(2)">กลับเมนู</button>
+</div>
 </div>
 
-<div class="box" id="p2" style="display:none;">
-<h2>✈️ ทริปแรก</h2>
-<p>หัวเราะทั้งทางเลย 🥰</p>
-<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
+<div id="page5" class="page">
+<div class="box">
+<h2>🎂 เซอร์ไพรส์</h2>
+<p>รักเธอที่สุดในโลกเลย 🥰</p>
+<button onclick="go(2)">กลับเมนู</button>
+</div>
 </div>
 
-<div class="box" id="p3" style="display:none;">
-<h2>🌟 ประทับใจ</h2>
-<p>เธอใจดี น่ารัก ❤️</p>
-<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
+<div id="page6" class="page">
+<div class="box">
+<h2>❤️ คำบอกรัก</h2>
+<p>เราจะอยู่ด้วยกันไปนาน ๆ นะ</p>
+<button onclick="go(2)">กลับเมนู</button>
 </div>
-
-<div class="box" id="p4" style="display:none;">
-<h2>🤫 ความลับ</h2>
-<p>เค้ารักเธอมากนะ</p>
-<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
-</div>
-
-<div class="box" id="p5" style="display:none;">
-<h2>🤝 คำสัญญา</h2>
-<p>จะดูแลเธอตลอดไป</p>
-<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
-</div>
-
-<div class="box" id="p6" style="display:none;">
-<h2>💌 ถึงเธอ</h2>
-<p>ขอบคุณที่เข้ามาในชีวิตเค้า</p>
-<button onclick="goMusic()">🎵 กลับหน้าเพลง</button>
 </div>
 
 <script>
-function hideAll(){
-document.querySelectorAll(".box").forEach(b=>b.style.display="none");
+let music = document.getElementById("bgm");
+function toggleMusic(){
+if(music.paused){
+music.play();
+}else{
+music.pause();
+}
 }
 
-function check(){
-if(code.value==="9999"){
-hideAll();
-music.style.display="block";
-}else{alert("รหัสผิด 😝");}
+function checkPass(){
+let p=document.getElementById("pass").value;
+if(p=="1234"){
+go(2);
+music.play();
+}else{
+alert("รหัสไม่ถูกต้อง 😝");
+}
 }
 
-function goMusic(){hideAll();music.style.display="block";}
-function goMenu(){hideAll();menu.style.display="block";}
-function goHome(){hideAll();screen1.style.display="block";}
-function show(id){hideAll();document.getElementById(id).style.display="block";}
+function go(n){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById("page"+n).classList.add("active");
+}
 
-function playMusic(){bgm.play();}
-function pauseMusic(){bgm.pause();}
-
-setInterval(()=>{
+function heart(){
 let h=document.createElement("div");
+h.innerHTML="❤️";
 h.className="heart";
-h.innerText="❤️";
 h.style.left=Math.random()*100+"vw";
-h.style.fontSize=(20+Math.random()*20)+"px";
 document.body.appendChild(h);
 setTimeout(()=>h.remove(),5000);
-},500);
+}
+setInterval(heart,500);
 </script>
 
 </body>

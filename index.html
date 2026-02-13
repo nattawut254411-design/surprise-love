@@ -2,153 +2,106 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>ของขวัญวาเลนไทน์ 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Mali:wght@300;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ตามหารูปความรัก</title>
 <style>
 body{
-margin:0;
-font-family:'Mali',cursive;
-background:linear-gradient(#ffd6e8,#fff0f6);
-overflow:hidden;
-text-align:center;
+  margin:0;
+  font-family: "Arial", sans-serif;
+  background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") no-repeat center/cover;
+  height:100vh;
+  overflow:hidden;
 }
-.page{display:none;height:100vh;padding:20px;}
-.active{display:block;}
-.box{
-background:white;
-border-radius:25px;
-padding:20px;
-max-width:350px;
-margin:auto;
-box-shadow:0 5px 15px rgba(0,0,0,.2);
+.hidden-img{
+  position:absolute;
+  width:60px;
+  border-radius:12px;
+  cursor:pointer;
+  box-shadow:0 0 10px rgba(255,255,255,0.8);
+}
+#popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+#box{
+  background:white;
+  padding:15px;
+  border-radius:20px;
+  text-align:center;
+  width:80%;
+  max-width:300px;
+  animation: pop 0.3s ease;
+}
+@keyframes pop{
+  from{transform:scale(0.5);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+#box img{
+  width:100%;
+  border-radius:15px;
+}
+#collected{
+  position:fixed;
+  top:10px;
+  right:10px;
+  display:flex;
+  gap:5px;
+}
+#collected img{
+  width:40px;
+  border-radius:8px;
 }
 button{
-background:#ff5b9d;
-color:white;
-border:none;
-border-radius:20px;
-padding:10px 20px;
-margin:10px;
-font-size:18px;
-}
-img{max-width:100%;border-radius:15px;}
-.heart{
-position:fixed;
-bottom:-20px;
-font-size:20px;
-animation:float 5s linear infinite;
-}
-@keyframes float{
-0%{transform:translateY(0);opacity:1;}
-100%{transform:translateY(-800px);opacity:0;}
-}
-.gallery img{
-width:90px;
-margin:5px;
-cursor:pointer;
-border:3px solid pink;
+  margin-top:10px;
+  padding:10px 18px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(45deg,pink,hotpink);
+  color:#fff;
+  font-size:16px;
 }
 </style>
 </head>
 <body>
 
-<div id="p1" class="page active">
-<div class="box">
-<h2>เราคบกันมาแล้ว 💕</h2>
-<p id="time"></p>
-<button onclick="go(2)">ไปต่อ</button>
-</div>
-</div>
+<div id="collected"></div>
 
-<div id="p2" class="page">
-<div class="box">
-<h2>ขูดหัวใจสิ 💖</h2>
-<canvas id="scratch" width="300" height="200"></canvas>
-<p>ขูดให้หมดเพื่อดูรูป</p>
-<button onclick="go(3)">ไปต่อ</button>
-</div>
-</div>
+<img src="https://picsum.photos/200/200?1" class="hidden-img" style="top:60%;left:10%" onclick="showImg(this,'รักเธอที่สุดในโลก 💖')">
+<img src="https://picsum.photos/200/200?2" class="hidden-img" style="top:30%;left:70%" onclick="showImg(this,'ขอบคุณที่อยู่ด้วยกัน 🌸')">
+<img src="https://picsum.photos/200/200?3" class="hidden-img" style="top:75%;left:50%" onclick="showImg(this,'เธอคือความสุขของฉัน 🥰')">
+<img src="https://picsum.photos/200/200?4" class="hidden-img" style="top:40%;left:20%" onclick="showImg(this,'รักนะคนดี 💕')">
+<img src="https://picsum.photos/200/200?5" class="hidden-img" style="top:20%;left:45%" onclick="showImg(this,'อยู่ด้วยกันตลอดไปนะ 💞')">
 
-<div id="p3" class="page">
-<div class="box">
-<h2>เลือกรูปความทรงจำ 📸</h2>
-<div class="gallery">
-<img src="https://picsum.photos/100?1" onclick="pick(this)">
-<img src="https://picsum.photos/100?2" onclick="pick(this)">
-<img src="https://picsum.photos/100?3" onclick="pick(this)">
-</div>
-<p id="count">เลือกครบ 3 รูป</p>
-</div>
-</div>
-
-<div id="p4" class="page">
-<div class="box">
-<h2>💌 Happy Valentine</h2>
-<p>ขอให้เรารักกันแบบนี้ไปนาน ๆ  
-ขอบคุณที่อยู่ด้วยกันนะ ❤️</p>
-</div>
+<div id="popup">
+  <div id="box">
+    <img id="popimg">
+    <p id="text"></p>
+    <button onclick="collect()">ตกลง</button>
+  </div>
 </div>
 
 <script>
-function go(n){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById("p"+n).classList.add("active");
+let currentImg;
+
+function showImg(el,msg){
+  currentImg = el;
+  document.getElementById("popimg").src = el.src;
+  document.getElementById("text").innerText = msg;
+  document.getElementById("popup").style.display="flex";
 }
 
-// เวลาเรียลไทม์
-let start=new Date("2024-03-05T00:00:00");
-setInterval(()=>{
-let now=new Date();
-let diff=now-start;
-let d=Math.floor(diff/86400000);
-let h=Math.floor(diff/3600000)%24;
-let m=Math.floor(diff/60000)%60;
-let s=Math.floor(diff/1000)%60;
-time.innerHTML=`${d} วัน ${h} ชม ${m} นาที ${s} วินาที`;
-},1000);
-
-// scratch
-let c=document.getElementById("scratch");
-let ctx=c.getContext("2d");
-let img=new Image();
-img.src="https://picsum.photos/300/200";
-img.onload=()=>ctx.drawImage(img,0,0);
-ctx.globalCompositeOperation="destination-out";
-let draw=false;
-c.onmousedown=()=>draw=true;
-c.onmouseup=()=>draw=false;
-c.onmousemove=e=>{
-if(draw){
-ctx.beginPath();
-ctx.arc(e.offsetX,e.offsetY,15,0,Math.PI*2);
-ctx.fill();
+function collect(){
+  let mini = document.createElement("img");
+  mini.src = currentImg.src;
+  document.getElementById("collected").appendChild(mini);
+  currentImg.style.display="none";
+  document.getElementById("popup").style.display="none";
 }
-}
-
-// gallery
-let picked=0;
-function pick(img){
-if(!img.classList.contains("done")){
-img.classList.add("done");
-img.style.opacity=0.5;
-picked++;
-count.innerText=`เลือกแล้ว ${picked}/3`;
-if(picked==3){
-setTimeout(()=>go(4),1000);
-}
-}
-}
-
-// hearts
-function heart(){
-let h=document.createElement("div");
-h.innerHTML="❤️";
-h.className="heart";
-h.style.left=Math.random()*100+"vw";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),5000);
-}
-setInterval(heart,500);
 </script>
+
 </body>
 </html>

@@ -32,9 +32,26 @@ text-align:center;
   height:100%;
 }
 #scratchText{font-size:24px;color:#ff1493;}
-#scratchContainer{position:relative;}
-#scratchImg{width:360px;border-radius:15px;}
-#scratchCanvas{position:absolute;left:0;top:0;border-radius:15px;}
+#scratchContainer{
+  position:relative;
+  width:280px;
+  height:auto;
+}
+
+#scratchImg{
+  width:100%;
+  display:block;
+  border-radius:15px;
+}
+
+#scratchCanvas{
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  border-radius:15px;
+}
 
 /* ===== เดิม ===== */
 #title{
@@ -208,6 +225,7 @@ const ctx=canvas.getContext("2d");
 img.onload=()=>{  
   canvas.width = img.clientWidth;  
   canvas.height = img.clientHeight;  
+  ctx.globalCompositeOperation="source-over";
   ctx.fillStyle="silver";  
   ctx.fillRect(0,0,canvas.width,canvas.height);  
 }
@@ -325,31 +343,62 @@ function goLoveScreen(){
     setTimeout(()=>h.remove(),6000);  
   },500);  
   
-  // ช่อดอกไม้ 7 ช่อ (ดอกสุดท้ายใหญ่พิเศษ)  
-  let flowers=["💐","🌹","🌷","🌸","🌼","🌺","🌻"];  
-  flowers.forEach((f,i)=>{  
-    setTimeout(()=>{  
-      let fl=document.createElement("div");  
-      fl.className="flower";  
-      fl.innerText=f;  
-      loveScreen.appendChild(fl);  
-  
-      if(i===flowers.length-1){  
-        fl.style.fontSize="200px";  
-      }  
-  
-      setTimeout(()=>{  
-        fl.style.bottom="30%";  
-        fl.style.transform="translateX(-50%) scale(1)";  
-      },100);  
-  
-      setTimeout(()=>{  
-        fl.style.bottom="10%";  
-        fl.style.left=(10+i*12)+"%";  
-        fl.style.transform="translateX(-50%) scale(0.4)";  
-      },2500);  
-    },i*3000);  
-  });  
-}  
+  // ===== ดอกไม้รวมร่าง =====
+let flowers=["💐","🌹","🌷","🌸","🌼","🌺","🌻"];
+let flowerElems=[];
+
+flowers.forEach((f,i)=>{
+  setTimeout(()=>{
+    let fl=document.createElement("div");
+    fl.className="flower";
+    fl.innerText=f;
+    fl.style.left=(10+i*12)+"%";
+    fl.style.bottom="10%";
+    fl.style.transform="translateX(-50%) scale(0.4)";
+    loveScreen.appendChild(fl);
+    flowerElems.push(fl);
+
+    // ถ้าครบ 7 ดอกแล้ว → รวมร่าง
+    if(flowerElems.length===7){
+      setTimeout(()=>{
+        flowerElems.forEach(fl=>{
+          fl.style.left="50%";
+          fl.style.bottom="40%";
+          fl.style.transform="translateX(-50%) scale(1.2)";
+        });
+
+        // ทำให้เป็นช่อใหญ่
+        setTimeout(()=>{
+          flowerElems.forEach(fl=>{
+            fl.style.fontSize="200px";
+          });
+        },2000);
+
+        // หน่วง 5 วิ แล้วระเบิดเป็นหัวใจ
+        setTimeout(()=>{
+          flowerElems.forEach(fl=>fl.remove());
+          explodeHearts();
+        },7000);
+
+      },1000);
+    }
+
+  },i*2000);
+});
+
+// ===== ระเบิดหัวใจ =====
+function explodeHearts(){
+  for(let i=0;i<80;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerText="❤";
+    h.style.left=Math.random()*100+"vw";
+    h.style.top=Math.random()*100+"vh";
+    h.style.fontSize=(20+Math.random()*40)+"px";
+    loveScreen.appendChild(h);
+
+    setTimeout(()=>h.remove(),6000);
+  }
+      }
 </script>  </body>  
 </html>  

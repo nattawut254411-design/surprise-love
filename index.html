@@ -160,19 +160,31 @@ video{
   color:white; font-size:18px;
   cursor:pointer;
 }
-.heart{
-  position:fixed;
-  font-size:24px;
-  animation: float 3s linear forwards;
+
+/* ====== หน้า I LOVE YOU ====== */
+#loveScreen{
+  display:none;
+  position:fixed; inset:0;
+  background:linear-gradient(#ff69b4,#ffc0cb);
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
 }
-@keyframes float{
-  from{transform:translateY(0);opacity:1}
-  to{transform:translateY(-300px);opacity:0}
-}
-#loveText{
+.loveChar{
+  position:absolute;
   font-size:48px;
+  font-weight:bold;
   color:white;
   text-shadow:3px 3px 8px hotpink;
+  transition:all 2s ease;
+}
+#loveCenter{
+  position:absolute;
+  font-size:64px;
+  color:white;
+  text-shadow:4px 4px 10px hotpink;
+  opacity:0;
+  transition:opacity 1s ease;
 }
 </style>
 </head>
@@ -225,8 +237,11 @@ video{
     ถ้าอยากสร้างความทรงจำกันเพิ่ม<br>
     ก็อยู่ด้วยกันตลอดไปเลยนะ 🥰🥰
   </div>
-  <div id="loveBtn" onclick="showLove()">กดหัวใจ</div>
-  <div id="loveText"></div>
+  <div id="loveBtn" onclick="goLoveScreen()">กดหัวใจ</div>
+</div>
+
+<div id="loveScreen">
+  <div id="loveCenter">I LOVE YOU</div>
 </div>
 
 <script>
@@ -286,6 +301,7 @@ function openGift(){
   v.play();
 
   v.onended=function(){
+    document.getElementById("bgm").play();
     setTimeout(()=>{
       document.getElementById("videoBox").style.display="none";
       document.getElementById("finalScreen").style.display="flex";
@@ -293,18 +309,42 @@ function openGift(){
   }
 }
 
-function showLove(){
-  document.getElementById("loveText").innerText="I LOVE YOU";
-  let interval=setInterval(()=>{
-    let h=document.createElement("div");
-    h.className="heart";
-    h.innerText="❤️";
-    h.style.left=Math.random()*100+"vw";
-    h.style.bottom="0px";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),3000);
-  },100);
-  setTimeout(()=>clearInterval(interval),3000);
+function goLoveScreen(){
+  document.getElementById("finalScreen").style.display="none";
+  document.getElementById("loveScreen").style.display="flex";
+  animateLove();
+}
+
+function animateLove(){
+  let text="I LOVE YOU";
+  let container=document.getElementById("loveScreen");
+  let center=document.getElementById("loveCenter");
+  let positions=[
+    {x:"-20%",y:"50%"},
+    {x:"120%",y:"50%"},
+    {x:"50%",y:"-20%"},
+    {x:"50%",y:"120%"}
+  ];
+
+  for(let i=0;i<text.length;i++){
+    let span=document.createElement("div");
+    span.className="loveChar";
+    span.innerText=text[i];
+    let pos=positions[i%4];
+    span.style.left=pos.x;
+    span.style.top=pos.y;
+    container.appendChild(span);
+
+    setTimeout(()=>{
+      span.style.left="50%";
+      span.style.top="50%";
+      span.style.transform="translate(-50%,-50%)";
+    },100);
+  }
+
+  setTimeout(()=>{
+    center.style.opacity=1;
+  },2500);
 }
 </script>
 </body>

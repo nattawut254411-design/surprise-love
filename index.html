@@ -13,59 +13,34 @@ body{
   overflow:hidden;
 }
 
-/* ===== หน้า Scratch ===== */
+/* ===== Scratch ===== */
 #scratchScreen{
-  position:fixed;
-  inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  position:fixed; inset:0;
+  display:flex; justify-content:center; align-items:center;
   background:linear-gradient(#ffc0cb,#ffd6e7);
   z-index:10;
 }
 #scratchBox{
-  background:white;
-  padding:20px;
+  background:white; padding:25px;
   border-radius:20px;
   box-shadow:0 0 20px pink;
   text-align:center;
 }
-#scratchText{
-  font-size:22px;
-  color:#ff1493;
-  margin-bottom:10px;
-}
-#scratchContainer{
-  position:relative;
-}
-#scratchImg{
-  width:260px;
-  border-radius:15px;
-}
-#scratchCanvas{
-  position:absolute;
-  left:0;
-  top:0;
-  border-radius:15px;
-}
+#scratchText{font-size:24px;color:#ff1493;}
+#scratchContainer{position:relative;}
+#scratchImg{width:280px;border-radius:15px;}
+#scratchCanvas{position:absolute;left:0;top:0;border-radius:15px;}
 
-/* ===== หน้าเกม ===== */
+/* ===== เดิม ===== */
 #title{
-  position:fixed;
-  top:80px;
-  width:100%;
-  text-align:center;
-  font-size:28px;
-  font-weight:bold;
+  position:fixed; top:80px; width:100%;
+  text-align:center; font-size:28px;
   color:#fff;
-  text-shadow:2px 2px 5px hotpink;
+  text-shadow:2px 2px 5px hotpink,0 0 10px pink;
 }
 .hidden-img{
-  position:absolute;
-  width:60px;
-  border-radius:12px;
-  cursor:pointer;
-  box-shadow:0 0 10px rgba(255,255,255,0.8);
+  position:absolute; width:60px;
+  border-radius:12px; cursor:pointer;
 }
 #popup{
   position:fixed; inset:0;
@@ -73,14 +48,12 @@ body{
   display:none; justify-content:center; align-items:center;
 }
 #box{
-  background:white; padding:15px; border-radius:20px;
-  text-align:center; width:80%; max-width:300px;
+  background:white; padding:15px;
+  border-radius:20px; width:80%; max-width:300px;
+  text-align:center;
 }
 #box img{width:100%;border-radius:15px;}
-
-#collected{
-  position:fixed; top:10px; right:10px; display:flex; gap:5px;
-}
+#collected{position:fixed;top:10px;right:10px;display:flex;gap:5px;}
 #collected img{width:40px;border-radius:8px;}
 
 button{
@@ -93,50 +66,47 @@ button{
   font-size:20px;
 }
 
-/* ===== การ์ด ===== */
-#card{display:none;position:fixed;inset:0;justify-content:center;align-items:center;flex-direction:column;}
+/* ===== หัวใจ ===== */
+#card{position:fixed;inset:0;display:none;justify-content:center;align-items:center;flex-direction:column;}
 #heartCard{
   width:200px;height:180px;
   background:hotpink;
   transform:rotate(-45deg);
-  cursor:pointer;
-  transition:.6s;
+  position:relative;cursor:pointer;
+  transition:transform .6s,opacity .6s;
 }
 #heartCard::before,#heartCard::after{
-  content:"";width:200px;height:180px;background:hotpink;border-radius:50%;position:absolute;
+  content:"";width:200px;height:180px;
+  background:hotpink;border-radius:50%;position:absolute;
 }
 #heartCard::before{top:-90px;}
 #heartCard::after{left:90px;}
+#cardText{margin-top:40px;font-size:26px;color:white;}
 .explode{transform:scale(2) rotate(-45deg);opacity:0;}
 
-#note,#gift,#videoBox,#finalScreen,#loveScreen{
- display:none;position:fixed;inset:0;
- justify-content:center;align-items:center;flex-direction:column;
-}
+#note{display:none;position:fixed;inset:0;justify-content:center;align-items:center;background:#ffe4ec;flex-direction:column;}
+#noteText{font-size:24px;color:#ff1493;margin-bottom:20px;}
+#giftBtn{display:none;}
 
-#note{background:#ffe4ec;text-align:center;}
-#noteText{font-size:22px;color:#ff1493;}
-
+#gift{display:none;position:fixed;inset:0;justify-content:center;align-items:center;}
 #giftBox{
-  width:170px;height:150px;border-radius:50%;
-  background:hotpink;display:flex;justify-content:center;align-items:center;
-  color:white;font-size:20px;cursor:pointer;
+  width:170px;height:150px;
+  background:hotpink;border-radius:50%;
+  display:flex;justify-content:center;align-items:center;
+  color:white;font-size:20px;
 }
 
+#videoBox{display:none;position:fixed;inset:0;justify-content:center;align-items:center;background:black;}
 video{width:90%;max-width:400px;border-radius:20px;}
 
-#finalScreen{
-  background:linear-gradient(#ffb6c1,#ffc0cb);
-  text-align:center;
-}
-#finalText{
-  font-size:24px;color:white;text-shadow:2px 2px 6px hotpink;
-  margin-bottom:40px;
-}
+#finalScreen{display:none;position:fixed;inset:0;background:linear-gradient(#ffb6c1,#ffc0cb);justify-content:center;align-items:center;flex-direction:column;}
+#finalText{font-size:26px;color:white;margin-bottom:30px;}
 
+/* ปุ่มเด้ง ไม่มีข้อความ */
 #loveBtn{
-  width:120px;height:120px;border-radius:50%;
-  background:hotpink;
+  width:120px;height:120px;
+  background:hotpink;border-radius:50%;
+  display:none;
   animation:bounce 2s infinite;
 }
 @keyframes bounce{
@@ -144,20 +114,47 @@ video{width:90%;max-width:400px;border-radius:20px;}
   50%{transform:translateY(-20px);}
 }
 
-.loveWord{
-  font-size:70px;
+/* ===== I LOVE YOU ===== */
+#loveScreen{
+  display:none;
+  position:fixed; inset:0;
+  background:linear-gradient(#ff69b4,#ffc0cb);
+  justify-content:center; align-items:center;
+  overflow:hidden;
+}
+
+/* 3D TEXT */
+.loveChar{
+  position:absolute;
+  font-size:42px;
   font-weight:bold;
   color:white;
   text-shadow:
-   2px 2px 0 hotpink,
-   4px 4px 0 deeppink,
-   6px 6px 10px rgba(0,0,0,.4);
+    2px 2px 0 #ff1493,
+    4px 4px 0 #ff69b4,
+    6px 6px 10px rgba(0,0,0,.4);
+  transition:all 2s ease;
 }
 
+/* ช่อดอกไม้ */
 .flower{
   position:absolute;
   font-size:120px;
-  transition:all 3s ease;
+  bottom:-200px;
+  left:50%;
+  transform:translateX(-50%) scale(0);
+  transition:all 2s ease;
+}
+
+/* หัวใจลอย */
+.heart{
+  position:absolute;
+  color:white;
+  animation:floatUp 6s linear infinite;
+}
+@keyframes floatUp{
+  from{transform:translateY(100vh);opacity:0;}
+  to{transform:translateY(-10vh);opacity:1;}
 }
 </style>
 </head>
@@ -174,17 +171,17 @@ video{width:90%;max-width:400px;border-radius:20px;}
 </div>
 
 <audio id="bgm" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
 </audio>
 
 <div id="title">ช่วยหารูปที่กระจายอยู่ให้ครบหน่อยนะ👇</div>
 <div id="collected"></div>
 
-<img src="1763384908243.jpg" class="hidden-img" style="top:60%;left:10%" onclick="showImg(this,'รักเธอที่สุดในโลก 💖\nขอบคุณที่อยู่ข้างกัน\nจะดูแลตลอดไป')">
-<img src="IMG_9338 (10).JPG" class="hidden-img" style="top:30%;left:70%" onclick="showImg(this,'เธอคือรอยยิ้มของเค้า\nคือความสุขในทุกวัน\nรักนะคนดี')">
-<img src="IMG20251214170718.jpg" class="hidden-img" style="top:75%;left:50%" onclick="showImg(this,'ไม่ว่าจะเจออะไร\nเค้าจะอยู่ข้างๆ\nเสมอเลยนะ')">
-<img src="IMG20251205140405.jpg" class="hidden-img" style="top:40%;left:20%" onclick="showImg(this,'ขอบคุณที่ไม่ทิ้งกัน\nขอบคุณที่รักเค้า\nหัวใจนี้ให้เธอ')">
-<img src="Screenshot_20240504_204902.jpg" class="hidden-img" style="top:20%;left:45%" onclick="showImg(this,'เธอคือทุกอย่างของเค้า\nคือบ้านของหัวใจ\nรักเธอที่สุด')">
+<img src="1763384908243.jpg" class="hidden-img" style="top:60%;left:10%" onclick="showImg(this,'รักเธอที่สุดในโลก 💖')">
+<img src="IMG_9338 (10).JPG" class="hidden-img" style="top:30%;left:70%" onclick="showImg(this,'ขอบคุณที่อยู่ด้วยกัน 🌸')">
+<img src="IMG20251214170718.jpg" class="hidden-img" style="top:75%;left:50%" onclick="showImg(this,'เธอคือความสุขของฉัน 🥰')">
+<img src="IMG20251205140405.jpg" class="hidden-img" style="top:40%;left:20%" onclick="showImg(this,'รักนะคนดี 💕')">
+<img src="Screenshot_20240504_204902.jpg" class="hidden-img" style="top:20%;left:45%" onclick="showImg(this,'อยู่ด้วยกันตลอดไปนะ 💞')">
 
 <div id="popup">
   <div id="box">
@@ -194,89 +191,180 @@ video{width:90%;max-width:400px;border-radius:20px;}
   </div>
 </div>
 
-<div id="card"><div id="heartCard" onclick="tearCard()"></div></div>
-<div id="note"><div id="noteText"></div><button onclick="showGift()">เปิดของขวัญ</button></div>
-<div id="gift"><div id="giftBox" onclick="openGift()">🎁</div></div>
+<div id="card">
+  <div id="heartCard" onclick="tearCard()"></div>
+  <div id="cardText">กดที่หัวใจเราดูสิ 💖</div>
+</div>
+
+<div id="note">
+  <div id="noteText"></div>
+  <button id="giftBtn" onclick="showGift()">เปิดของขวัญ</button>
+</div>
+
+<div id="gift">
+  <div id="giftBox" onclick="openGift()">ลองเปิดดูของขวัญสิ</div>
+</div>
 
 <div id="videoBox">
-<video id="loveVideo" playsinline>
-<source src="lv_0_20260214132326.mp4">
-</video>
+  <video id="loveVideo" controls playsinline>
+    <source src="lv_0_20260214132326.mp4" type="video/mp4">
+  </video>
 </div>
 
 <div id="finalScreen">
-<div id="finalText"></div>
-<div id="loveBtn" onclick="goLoveScreen()"></div>
+  <div id="finalText"></div>
+  <div id="loveBtn" onclick="goLoveScreen()"></div>
 </div>
 
 <div id="loveScreen"></div>
 
 <script>
-/* ===== Scratch FIX (รองรับมือถือ) ===== */
 const canvas=document.getElementById("scratchCanvas");
 const img=document.getElementById("scratchImg");
 const ctx=canvas.getContext("2d");
 
 img.onload=()=>{
- canvas.width=img.width;
- canvas.height=img.height;
- ctx.fillStyle="silver";
- ctx.fillRect(0,0,canvas.width,canvas.height);
-};
+  canvas.width=img.width;
+  canvas.height=img.height;
+  ctx.fillStyle="silver";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+}
 
 let drawing=false;
+canvas.onmousedown=()=>drawing=true;
+canvas.onmouseup=()=>drawing=false;
+canvas.ontouchstart=()=>drawing=true;
+canvas.ontouchend=()=>drawing=false;
 
-function getPos(e){
- let rect=canvas.getBoundingClientRect();
- let x,y;
- if(e.touches){
-  x=e.touches[0].clientX-rect.left;
-  y=e.touches[0].clientY-rect.top;
- }else{
-  x=e.clientX-rect.left;
-  y=e.clientY-rect.top;
- }
- return {x,y};
-}
-
-canvas.addEventListener("mousedown",()=>drawing=true);
-canvas.addEventListener("mouseup",()=>drawing=false);
-canvas.addEventListener("mouseleave",()=>drawing=false);
-
-canvas.addEventListener("touchstart",e=>{drawing=true;e.preventDefault();});
-canvas.addEventListener("touchend",()=>drawing=false);
-
-canvas.addEventListener("mousemove",scratch);
-canvas.addEventListener("touchmove",scratch,{passive:false});
+canvas.onmousemove=scratch;
+canvas.ontouchmove=scratch;
 
 function scratch(e){
- if(!drawing)return;
- e.preventDefault();
- let p=getPos(e);
- ctx.globalCompositeOperation="destination-out";
- ctx.beginPath();
- ctx.arc(p.x,p.y,25,0,Math.PI*2);
- ctx.fill();
- checkClear();
+  if(!drawing) return;
+  let r=canvas.getBoundingClientRect();
+  let x=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
+  let y=(e.touches?e.touches[0].clientY:e.clientY)-r.top;
+  ctx.globalCompositeOperation="destination-out";
+  ctx.beginPath();ctx.arc(x,y,18,0,Math.PI*2);ctx.fill();
+  checkClear();
 }
-
 function checkClear(){
- let d=ctx.getImageData(0,0,canvas.width,canvas.height).data;
- let c=0;
- for(let i=3;i<d.length;i+=4) if(d[i]==0) c++;
- if(c>d.length/8) scratchScreen.style.display="none";
+  let d=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+  let c=0;
+  for(let i=3;i<d.length;i+=4) if(d[i]===0) c++;
+  if(c>d.length/10) scratchScreen.style.display="none";
 }
 
-/* ===== เกมเดิม ===== */
 let count=0,lastImg;
-function showImg(img,t){lastImg=img;popimg.src=img.src;text.innerText=t;popup.style.display="flex";}
-function collect(){popup.style.display="none";lastImg.style.display="none";let c=document.createElement("img");c.src=lastImg.src;collected.appendChild(c);if(++count==5) card.style.display="flex";}
-function tearCard(){heartCard.classList.add("explode");bgm.play();setTimeout(()=>{card.style.display="none";note.style.display="flex";let msg="เค้ารักเธอมากนะ\nถึงวันนี้เราอาจไกลกัน\nแต่หัวใจยังอยู่ใกล้เสมอ";let i=0;let t=setInterval(()=>{noteText.innerText+=msg[i++];if(i>=msg.length)clearInterval(t);},50);},600);}
+function showImg(img,text){
+  lastImg=img;
+  popimg.src=img.src;
+  document.getElementById("text").innerText=text;
+  popup.style.display="flex";
+}
+function collect(){
+  popup.style.display="none";
+  lastImg.style.display="none";
+  let c=document.createElement("img");
+  c.src=lastImg.src;
+  collected.appendChild(c);
+  count++;
+  if(count==5) card.style.display="flex";
+}
+
+function tearCard(){
+  heartCard.classList.add("explode");
+  bgm.play();
+  setTimeout(()=>{
+    card.style.display="none";
+    note.style.display="flex";
+    let msg="เค้ารักอ้วนนะ ถึงเราไม่ได้อยู่ด้วยกันในวันนี้ แต่เค้าสัญญาว่าสักวันเราจะได้อยู่ด้วยกันแบบแฮปปี้นะ 😘😘";
+    let i=0;
+    noteText.innerText="";
+    let t=setInterval(()=>{
+      noteText.innerText+=msg[i++];
+      if(i>=msg.length){clearInterval(t);giftBtn.style.display="inline-block";}
+    },50);
+  },600);
+}
 function showGift(){note.style.display="none";gift.style.display="flex";}
-function openGift(){bgm.pause();gift.style.display="none";videoBox.style.display="flex";loveVideo.play();loveVideo.onended=()=>{bgm.play();videoBox.style.display="none";showTyped();};}
-function showTyped(){finalScreen.style.display="flex";let msg="นี่คือความทรงจำของเราสองคน\nและจะมีเพิ่มไปเรื่อยๆ\nถ้าเรายังรักกัน";let i=0;finalText.innerText="";let t=setInterval(()=>{finalText.innerText+=msg[i++];if(i>=msg.length)clearInterval(t);},60);}
-function goLoveScreen(){finalScreen.style.display="none";loveScreen.style.display="flex";let word=document.createElement("div");word.className="loveWord";word.innerText="ILOVEYOU";loveScreen.appendChild(word);setTimeout(showFlowers,3000);}
-function showFlowers(){let flowers=["💐","🌹","🌷","🌸","🌼","🌺","🥀"];let y=innerHeight-200;flowers.forEach((f,i)=>{let d=document.createElement("div");d.className="flower";d.innerText=f;d.style.left=innerWidth/2+"px";d.style.top=innerHeight+"px";loveScreen.appendChild(d);setTimeout(()=>{d.style.left=(80+i*100)+"px";d.style.top=y+"px";d.style.fontSize="50px";},i*800);});}
+function openGift(){
+  bgm.pause();
+  gift.style.display="none";
+  videoBox.style.display="flex";
+  loveVideo.play();
+  loveVideo.onended=()=>{
+    bgm.play();
+    videoBox.style.display="none";
+    showTypedText();
+  }
+}
+function showTypedText(){
+  finalScreen.style.display="flex";
+  let msg="นี่เป็นความทรงจำของเราสองคนแค่บางช่วงเวลานะ 💞\nถ้าอยากสร้างความทรงจำกันเพิ่ม\nก็อยู่ด้วยกันตลอดไปเลยนะ 🥰🥰";
+  let i=0;
+  finalText.innerText="";
+  let t=setInterval(()=>{
+    finalText.innerText+=msg[i++];
+    if(i>=msg.length){clearInterval(t);loveBtn.style.display="flex";}
+  },50);
+}
+
+function goLoveScreen(){
+  finalScreen.style.display="none";
+  loveScreen.style.display="flex";
+
+  let word="ILOVEYOU";
+  let cx=innerWidth/2;
+  let cy=innerHeight/2-80;
+  let space=45;
+
+  for(let i=0;i<word.length;i++){
+    let d=document.createElement("div");
+    d.className="loveChar";
+    d.innerText=word[i];
+    d.style.left=Math.random()*innerWidth+"px";
+    d.style.top=Math.random()*innerHeight+"px";
+    loveScreen.appendChild(d);
+    setTimeout(()=>{
+      d.style.left=(cx-(word.length/2-i)*space)+"px";
+      d.style.top=cy+"px";
+    },100);
+  }
+
+  // หัวใจลอย
+  setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerText="❤";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(15+Math.random()*20)+"px";
+    loveScreen.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  },500);
+
+  // ช่อดอกไม้ 7 ช่อ
+  let flowers=["💐","🌹","🌷","🌸","🌼","🌺","🥀"];
+  flowers.forEach((f,i)=>{
+    setTimeout(()=>{
+      let fl=document.createElement("div");
+      fl.className="flower";
+      fl.innerText=f;
+      loveScreen.appendChild(fl);
+
+      setTimeout(()=>{
+        fl.style.bottom="30%";
+        fl.style.transform="translateX(-50%) scale(1)";
+      },100);
+
+      setTimeout(()=>{
+        fl.style.bottom="10%";
+        fl.style.left=(10+i*12)+"%";
+        fl.style.transform="translateX(-50%) scale(0.4)";
+      },2500);
+    },i*3000);
+  });
+}
 </script>
 </body>
 </html>

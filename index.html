@@ -39,9 +39,9 @@ text-align:center;
 }
 
 #scratchImg{
-  width:100%;
-  display:block;
+  width:280px;
   border-radius:15px;
+  visibility:hidden; /* ซ่อนรูปก่อนขูด */
 }
 
 #scratchCanvas{
@@ -252,8 +252,10 @@ function checkClear(){
   let d=ctx.getImageData(0,0,canvas.width,canvas.height).data;  
   let c=0;  
   for(let i=3;i<d.length;i+=4) if(d[i]===0) c++;  
-  if(c>d.length/10) scratchScreen.style.display="none";  
-}  
+  if(c>d.length/10){
+  canvas.style.display="none";        // เอาชั้นเงินออก
+  img.style.visibility="visible";     // โชว์รูปที่ขูดได้
+  }
   
 let count=0,lastImg;  
 function showImg(img,text){  

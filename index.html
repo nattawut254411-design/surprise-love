@@ -76,12 +76,12 @@ body{
 
 button{
   margin-top:15px;
-  padding:10px 20px;
+  padding:14px 26px;
   border:none;
-  border-radius:25px;
+  border-radius:30px;
   background:linear-gradient(45deg,pink,hotpink);
   color:#fff;
-  font-size:18px;
+  font-size:20px;
   box-shadow:0 4px 10px rgba(0,0,0,0.3);
 }
 
@@ -116,6 +116,7 @@ button{
   position:relative;
   transform:rotate(-45deg);
   cursor:pointer;
+  transition:transform 0.6s ease, opacity 0.6s ease;
 }
 #heartCard::before,
 #heartCard::after{
@@ -130,11 +131,17 @@ button{
 #heartCard::after{left:90px;top:0;}
 
 #cardText{
-  margin-top:20px;
-  font-size:24px;
+  margin-top:40px; /* ขยับข้อความลง */
+  font-size:26px;
   font-weight:bold;
   color:white;
   text-shadow:2px 2px 5px #ff1493,0 0 10px pink;
+}
+
+/* เอฟเฟคระเบิด */
+.explode{
+  transform:scale(2) rotate(-45deg);
+  opacity:0;
 }
 
 /* โน้ต */
@@ -156,6 +163,18 @@ button{
   margin-bottom:20px;
 }
 
+/* ปุ่มของขวัญ */
+#giftBtn{
+  display:none;
+  font-size:22px;
+  padding:16px 32px;
+  animation: blink 1.5s infinite;
+}
+@keyframes blink{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.6;transform:scale(1.1);}
+}
+
 /* กล่องของขวัญ */
 #gift{
   display:none;
@@ -166,15 +185,15 @@ button{
   flex-direction:column;
 }
 #giftBox{
-  width:160px;
-  height:140px;
+  width:170px;
+  height:150px;
   background:hotpink;
   border-radius:50%;
   display:flex;
   justify-content:center;
   align-items:center;
   color:white;
-  font-size:18px;
+  font-size:20px;
   cursor:pointer;
   box-shadow:0 0 15px pink;
 }
@@ -234,7 +253,7 @@ video{
 
 <div id="note">
   <div id="noteText"></div>
-  <button id="giftBtn" style="display:none" onclick="showGift()">เปิดของขวัญ</button>
+  <button id="giftBtn" onclick="showGift()">เปิดของขวัญ</button>
 </div>
 
 <div id="gift">
@@ -282,23 +301,30 @@ function showSuccess(){
 }
 
 function tearCard(){
-  document.getElementById("card").style.display="none";
+  let heart=document.getElementById("heartCard");
+  heart.classList.add("explode");
+
   document.getElementById("bgm").play();
 
-  document.getElementById("note").style.display="flex";
-  document.getElementById("noteText").innerText="";
-  document.getElementById("giftBtn").style.display="none";
+  setTimeout(()=>{
+    document.getElementById("card").style.display="none";
+    document.getElementById("note").style.display="flex";
+    document.getElementById("noteText").innerText="";
+    document.getElementById("giftBtn").style.display="none";
 
-  let msg="เค้ารักอ้วนนะ ถึงเราไม่ได้อยู่ด้วยกันในวันนี้ แต่เค้าสัญญาว่าสักวันเราจะได้อยู่ด้วยกันแบบแฮปปี้นะ 😘😘";
-  let i=0;
-  let interval=setInterval(()=>{
-    document.getElementById("noteText").innerText+=msg[i];
-    i++;
-    if(i>=msg.length){
-      clearInterval(interval);
-      document.getElementById("giftBtn").style.display="inline-block";
-    }
-  },50);
+    let msg="เค้ารักอ้วนนะ ถึงเราไม่ได้อยู่ด้วยกันในวันนี้ แต่เค้าสัญญาว่าสักวันเราจะได้อยู่ด้วยกันแบบแฮปปี้นะ 😘😘";
+    let i=0;
+    let interval=setInterval(()=>{
+      document.getElementById("noteText").innerText+=msg[i];
+      i++;
+      if(i>=msg.length){
+        clearInterval(interval);
+        setTimeout(()=>{
+          document.getElementById("giftBtn").style.display="inline-block";
+        },2000);
+      }
+    },50);
+  },600);
 }
 
 function showGift(){

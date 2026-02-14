@@ -134,7 +134,6 @@ video{width:90%;max-width:400px;border-radius:20px;}
   margin-bottom:40px;
 }
 
-/* ปุ่มเด้งไม่มีข้อความ */
 #loveBtn{
   width:120px;height:120px;border-radius:50%;
   background:hotpink;
@@ -145,7 +144,6 @@ video{width:90%;max-width:400px;border-radius:20px;}
   50%{transform:translateY(-20px);}
 }
 
-/* ILOVEYOU 3D */
 .loveWord{
   font-size:70px;
   font-weight:bold;
@@ -156,7 +154,6 @@ video{width:90%;max-width:400px;border-radius:20px;}
    6px 6px 10px rgba(0,0,0,.4);
 }
 
-/* ดอกไม้ */
 .flower{
   position:absolute;
   font-size:120px;
@@ -166,7 +163,6 @@ video{width:90%;max-width:400px;border-radius:20px;}
 </head>
 <body>
 
-<!-- หน้า Scratch -->
 <div id="scratchScreen">
   <div id="scratchBox">
     <div id="scratchText">ขูดหัวใจดูสิ 💖</div>
@@ -216,7 +212,7 @@ video{width:90%;max-width:400px;border-radius:20px;}
 <div id="loveScreen"></div>
 
 <script>
-/* Scratch */
+/* ===== Scratch FIX (รองรับมือถือ) ===== */
 const canvas=document.getElementById("scratchCanvas");
 const img=document.getElementById("scratchImg");
 const ctx=canvas.getContext("2d");
@@ -229,118 +225,58 @@ img.onload=()=>{
 };
 
 let drawing=false;
-canvas.onmousedown=()=>drawing=true;
-canvas.onmouseup=()=>drawing=false;
-canvas.onmousemove=scratch;
+
+function getPos(e){
+ let rect=canvas.getBoundingClientRect();
+ let x,y;
+ if(e.touches){
+  x=e.touches[0].clientX-rect.left;
+  y=e.touches[0].clientY-rect.top;
+ }else{
+  x=e.clientX-rect.left;
+  y=e.clientY-rect.top;
+ }
+ return {x,y};
+}
+
+canvas.addEventListener("mousedown",()=>drawing=true);
+canvas.addEventListener("mouseup",()=>drawing=false);
+canvas.addEventListener("mouseleave",()=>drawing=false);
+
+canvas.addEventListener("touchstart",e=>{drawing=true;e.preventDefault();});
+canvas.addEventListener("touchend",()=>drawing=false);
+
+canvas.addEventListener("mousemove",scratch);
+canvas.addEventListener("touchmove",scratch,{passive:false});
 
 function scratch(e){
  if(!drawing)return;
- let r=canvas.getBoundingClientRect();
- let x=e.clientX-r.left;
- let y=e.clientY-r.top;
+ e.preventDefault();
+ let p=getPos(e);
  ctx.globalCompositeOperation="destination-out";
  ctx.beginPath();
- ctx.arc(x,y,20,0,Math.PI*2);
+ ctx.arc(p.x,p.y,25,0,Math.PI*2);
  ctx.fill();
  checkClear();
 }
+
 function checkClear(){
  let d=ctx.getImageData(0,0,canvas.width,canvas.height).data;
  let c=0;
  for(let i=3;i<d.length;i+=4) if(d[i]==0) c++;
- if(c>d.length/10) scratchScreen.style.display="none";
+ if(c>d.length/8) scratchScreen.style.display="none";
 }
 
-/* เกม */
+/* ===== เกมเดิม ===== */
 let count=0,lastImg;
-function showImg(img,t){
- lastImg=img;
- popimg.src=img.src;
- text.innerText=t;
- popup.style.display="flex";
-}
-function collect(){
- popup.style.display="none";
- lastImg.style.display="none";
- let c=document.createElement("img");
- c.src=lastImg.src;
- collected.appendChild(c);
- if(++count==5) card.style.display="flex";
-}
-
-function tearCard(){
- heartCard.classList.add("explode");
- bgm.play();
- setTimeout(()=>{
- card.style.display="none";
- note.style.display="flex";
- let msg="เค้ารักเธอมากนะ\nถึงวันนี้เราอาจไกลกัน\nแต่หัวใจยังอยู่ใกล้เสมอ";
- let i=0;
- let t=setInterval(()=>{
- noteText.innerText+=msg[i++];
- if(i>=msg.length) clearInterval(t);
- },50);
- },600);
-}
-
-function showGift(){
- note.style.display="none";
- gift.style.display="flex";
-}
-
-function openGift(){
- bgm.pause();
- gift.style.display="none";
- videoBox.style.display="flex";
- loveVideo.play();
- loveVideo.onended=()=>{
- bgm.play();
- videoBox.style.display="none";
- showTyped();
- };
-}
-
-function showTyped(){
- finalScreen.style.display="flex";
- let msg="นี่คือความทรงจำของเราสองคน\nและจะมีเพิ่มไปเรื่อยๆ\nถ้าเรายังรักกัน";
- let i=0;
- finalText.innerText="";
- let t=setInterval(()=>{
- finalText.innerText+=msg[i++];
- if(i>=msg.length) clearInterval(t);
- },60);
-}
-
-function goLoveScreen(){
- finalScreen.style.display="none";
- loveScreen.style.display="flex";
- let word=document.createElement("div");
- word.className="loveWord";
- word.innerText="ILOVEYOU";
- loveScreen.appendChild(word);
-
- setTimeout(showFlowers,3000);
-}
-
-function showFlowers(){
- let flowers=["💐","🌹","🌷","🌸","🌼","🌺","🥀"];
- let y=innerHeight-200;
-
- flowers.forEach((f,i)=>{
-  let d=document.createElement("div");
-  d.className="flower";
-  d.innerText=f;
-  d.style.left=innerWidth/2+"px";
-  d.style.top=innerHeight+"px";
-  loveScreen.appendChild(d);
-
-  setTimeout(()=>{
-    d.style.left=(80+i*100)+"px";
-    d.style.top=y+"px";
-    d.style.fontSize="50px";
-  },i*800);
- });
-}
+function showImg(img,t){lastImg=img;popimg.src=img.src;text.innerText=t;popup.style.display="flex";}
+function collect(){popup.style.display="none";lastImg.style.display="none";let c=document.createElement("img");c.src=lastImg.src;collected.appendChild(c);if(++count==5) card.style.display="flex";}
+function tearCard(){heartCard.classList.add("explode");bgm.play();setTimeout(()=>{card.style.display="none";note.style.display="flex";let msg="เค้ารักเธอมากนะ\nถึงวันนี้เราอาจไกลกัน\nแต่หัวใจยังอยู่ใกล้เสมอ";let i=0;let t=setInterval(()=>{noteText.innerText+=msg[i++];if(i>=msg.length)clearInterval(t);},50);},600);}
+function showGift(){note.style.display="none";gift.style.display="flex";}
+function openGift(){bgm.pause();gift.style.display="none";videoBox.style.display="flex";loveVideo.play();loveVideo.onended=()=>{bgm.play();videoBox.style.display="none";showTyped();};}
+function showTyped(){finalScreen.style.display="flex";let msg="นี่คือความทรงจำของเราสองคน\nและจะมีเพิ่มไปเรื่อยๆ\nถ้าเรายังรักกัน";let i=0;finalText.innerText="";let t=setInterval(()=>{finalText.innerText+=msg[i++];if(i>=msg.length)clearInterval(t);},60);}
+function goLoveScreen(){finalScreen.style.display="none";loveScreen.style.display="flex";let word=document.createElement("div");word.className="loveWord";word.innerText="ILOVEYOU";loveScreen.appendChild(word);setTimeout(showFlowers,3000);}
+function showFlowers(){let flowers=["💐","🌹","🌷","🌸","🌼","🌺","🥀"];let y=innerHeight-200;flowers.forEach((f,i)=>{let d=document.createElement("div");d.className="flower";d.innerText=f;d.style.left=innerWidth/2+"px";d.style.top=innerHeight+"px";loveScreen.appendChild(d);setTimeout(()=>{d.style.left=(80+i*100)+"px";d.style.top=y+"px";d.style.fontSize="50px";},i*800);});}
 </script>
 </body>
 </html>

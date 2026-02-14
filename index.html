@@ -68,6 +68,7 @@ button{
 </head>
 <body>
 
+<div id="title">ช่วยหารูปที่กระจายอยู่ให้ครบหน่อยนะ👇</div>
 <div id="collected"></div>
 
 <img src="1763384908243.jpg" class="hidden-img" style="top:60%;left:10%" onclick="showImg(this,'รักเธอที่สุดในโลก 💖')">
@@ -83,22 +84,47 @@ button{
   </div>
 </div>
 
-<script>
-let currentImg;
+<div id="popup">
+  <div id="popupContent">
+    <img id="popupImg" width="150"><br><br>
+    💖 รักเธอนะ 💖<br><br>
+    <button onclick="closePopup()">ตกลง</button>
+  </div>
+</div>
 
-function showImg(el,msg){
-  currentImg = el;
-  document.getElementById("popimg").src = el.src;
-  document.getElementById("text").innerText = msg;
+<div id="collected"></div>
+
+<div id="card" onclick="openNote()">
+  <div id="cardInner">ลองฉีกการ์ดออกสิ 💌</div>
+</div>
+
+<script>
+let count = 0;
+let lastImg;
+
+function found(img){
+  lastImg = img;
+  document.getElementById("popupImg").src = img.src;
   document.getElementById("popup").style.display="flex";
 }
 
-function collect(){
-  let mini = document.createElement("img");
-  mini.src = currentImg.src;
-  document.getElementById("collected").appendChild(mini);
-  currentImg.style.display="none";
+function closePopup(){
   document.getElementById("popup").style.display="none";
+  lastImg.style.display="none";
+
+  let c = document.createElement("img");
+  c.src = lastImg.src;
+  c.width = 40;
+  document.getElementById("collected").appendChild(c);
+
+  count++;
+  if(count==5){
+    document.getElementById("card").style.display="flex";
+  }
+}
+
+function openNote(){
+  document.getElementById("cardInner").innerHTML="รักเธอมากนะ อยู่ด้วยกันไปนานๆเลย ❤️";
 }
 </script>
 

@@ -23,6 +23,14 @@ border-radius:20px;
 box-shadow:0 0 20px pink;
 text-align:center;
 }
+#scratchCanvas{
+  position:absolute;
+  left:0;
+  top:0;
+  border-radius:15px;
+  width:100%;
+  height:100%;
+}
 #scratchText{font-size:24px;color:#ff1493;}
 #scratchContainer{position:relative;}
 #scratchImg{width:360px;border-radius:15px;}
@@ -158,7 +166,7 @@ to{transform:translateY(-10vh);opacity:1;}
 </head>  
 <body>  <div id="scratchScreen">  
   <div id="scratchBox">  
-    <div id="scratchText">ขูดหัวใจดูสิ 💖</div>  
+    <div id="scratchText">ลองขูดดูสิ 💖</div>  
     <div id="scratchContainer">  
       <img src="1771053863584.jpg" id="scratchImg">  
       <canvas id="scratchCanvas"></canvas>  
@@ -198,11 +206,11 @@ const img=document.getElementById("scratchImg");
 const ctx=canvas.getContext("2d");  
   
 img.onload=()=>{  
-  canvas.width=img.width;  
-  canvas.height=img.height;  
+  canvas.width = img.clientWidth;  
+  canvas.height = img.clientHeight;  
   ctx.fillStyle="silver";  
   ctx.fillRect(0,0,canvas.width,canvas.height);  
-}  
+}
   
 let drawing=false;  
 canvas.onmousedown=()=>drawing=true;  

@@ -4,25 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ตามหารูปความรัก</title>
-
 <style>
 body{
   margin:0;
-  font-family: "Arial", sans-serif;
+  font-family: "Comic Sans MS","Segoe UI",sans-serif;
   background: url("IMG20251228180638.jpg") no-repeat center/cover;
   height:100vh;
   overflow:hidden;
 }
 
-/* ข้อความบนสุด */
+/* หัวข้อ */
 #title{
   position:fixed;
-  top:10px;
+  top:60px;
   width:100%;
   text-align:center;
-  color:white;
-  font-size:20px;
-  text-shadow:0 0 5px black;
+  font-size:26px;
+  font-weight:bold;
+  color:#fff;
+  text-shadow:2px 2px 5px hotpink,0 0 10px pink;
 }
 
 /* รูปที่ซ่อน */
@@ -34,7 +34,7 @@ body{
   box-shadow:0 0 10px rgba(255,255,255,0.8);
 }
 
-/* popup */
+/* popup รูป */
 #popup{
   position:fixed;
   inset:0;
@@ -50,16 +50,21 @@ body{
   text-align:center;
   width:80%;
   max-width:300px;
+  animation: pop 0.3s ease;
+}
+@keyframes pop{
+  from{transform:scale(0.5);opacity:0}
+  to{transform:scale(1);opacity:1}
 }
 #box img{
   width:100%;
   border-radius:15px;
 }
 
-/* รูปที่เก็บแล้ว */
+/* มุมขวาบน */
 #collected{
   position:fixed;
-  top:50px;
+  top:10px;
   right:10px;
   display:flex;
   gap:5px;
@@ -69,7 +74,6 @@ body{
   border-radius:8px;
 }
 
-/* ปุ่ม */
 button{
   margin-top:10px;
   padding:10px 18px;
@@ -80,25 +84,112 @@ button{
   font-size:16px;
 }
 
-/* การ์ด */
+/* หน้าชม */
+#success{
+  position:fixed;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:rgba(0,0,0,0.7);
+  color:white;
+  font-size:28px;
+}
+#countdown{font-size:22px;}
+#heartRow{font-size:40px;}
+
+/* การ์ดหัวใจ */
 #card{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.7);
   display:none;
   justify-content:center;
   align-items:center;
 }
-#cardInner{
-  background:linear-gradient(45deg,#ffd1dc,#ff9eb5);
-  padding:30px;
-  border-radius:20px;
-  font-size:20px;
+#heartCard{
+  width:200px;
+  height:180px;
+  background:hotpink;
+  position:relative;
+  transform:rotate(-45deg);
+  cursor:pointer;
+}
+#heartCard::before,
+#heartCard::after{
+  content:"";
+  width:200px;
+  height:180px;
+  background:hotpink;
+  border-radius:50%;
+  position:absolute;
+}
+#heartCard::before{top:-90px;left:0;}
+#heartCard::after{left:90px;top:0;}
+#cardText{
+  position:absolute;
+  width:100%;
+  text-align:center;
   color:white;
+  font-size:22px;
+  transform:rotate(45deg);
+  top:70px;
+}
+
+/* โน้ต */
+#note{
+  display:none;
+  position:fixed;
+  inset:0;
+  justify-content:center;
+  align-items:center;
+  background:#ffe4ec;
+  text-align:center;
+  padding:20px;
+  font-size:22px;
+}
+
+/* กล่องของขวัญ */
+#gift{
+  display:none;
+  position:fixed;
+  inset:0;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+#giftBox{
+  width:150px;
+  height:130px;
+  background:hotpink;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+}
+
+/* หัวใจลอย */
+.heart{
+  position:fixed;
+  color:pink;
+  font-size:20px;
+  animation: float 3s linear forwards;
+}
+@keyframes float{
+  from{transform:translateY(0);opacity:1}
+  to{transform:translateY(-200px);opacity:0}
+}
+
+video{
+  width:90%;
+  max-width:400px;
+  border-radius:20px;
 }
 </style>
 </head>
-
 <body>
 
 <div id="title">ช่วยหารูปที่กระจายอยู่ให้ครบหน่อยนะ👇</div>
@@ -110,7 +201,6 @@ button{
 <img src="IMG20251205140405.jpg" class="hidden-img" style="top:40%;left:20%" onclick="showImg(this,'รักนะคนดี 💕')">
 <img src="Screenshot_20240504_204902.jpg" class="hidden-img" style="top:20%;left:45%" onclick="showImg(this,'อยู่ด้วยกันตลอดไปนะ 💞')">
 
-<!-- popup -->
 <div id="popup">
   <div id="box">
     <img id="popimg">
@@ -119,40 +209,100 @@ button{
   </div>
 </div>
 
-<!-- การ์ด -->
-<div id="card" onclick="openNote()">
-  <div id="cardInner">ลองฉีกการ์ดออกสิ 💌</div>
+<div id="success">
+  <div>เก่งที่สุดเลย 🩷</div>
+  <div id="countdown">3</div>
+  <div id="heartRow"></div>
+</div>
+
+<div id="card">
+  <div id="heartCard" onclick="tearCard()">
+    <div id="cardText">ฉีกการ์ดสิ</div>
+  </div>
+</div>
+
+<div id="note">
+  <div id="noteText"></div><br>
+  <button onclick="showGift()">เปิดกล่องของขวัญ</button>
+</div>
+
+<div id="gift">
+  <div id="giftBox" onclick="openGift()">ลองเปิดดูของขวัญสิ</div>
+</div>
+
+<div id="videoBox" style="display:none;position:fixed;inset:0;justify-content:center;align-items:center;background:black;">
+  <video src="test.mp4" controls autoplay></video>
 </div>
 
 <script>
-let count = 0;
-let currentImg;
+let count=0,lastImg,heartCount=0;
 
-function showImg(img,msg){
-  currentImg = img;
-  document.getElementById("popimg").src = img.src;
-  document.getElementById("text").innerText = msg;
+function showImg(img,text){
+  lastImg=img;
+  document.getElementById("popimg").src=img.src;
+  document.getElementById("text").innerText=text;
   document.getElementById("popup").style.display="flex";
 }
 
 function collect(){
   document.getElementById("popup").style.display="none";
-  currentImg.style.display="none";
-
-  let c = document.createElement("img");
-  c.src = currentImg.src;
+  lastImg.style.display="none";
+  let c=document.createElement("img");
+  c.src=lastImg.src;
   document.getElementById("collected").appendChild(c);
-
   count++;
-  if(count==5){
-    document.getElementById("card").style.display="flex";
-  }
+  if(count==5) showSuccess();
 }
 
-function openNote(){
-  document.getElementById("cardInner").innerHTML="รักเธอมากนะ อยู่ด้วยกันไปนานๆเลย ❤️";
+function showSuccess(){
+  document.getElementById("success").style.display="flex";
+  let sec=3;
+  let timer=setInterval(()=>{
+    document.getElementById("countdown").innerText=sec;
+    heartCount++;
+    document.getElementById("heartRow").innerText="❤️".repeat(heartCount);
+    sec--;
+    if(sec<0){
+      clearInterval(timer);
+      document.getElementById("success").style.display="none";
+      document.getElementById("card").style.display="flex";
+    }
+  },1000);
+}
+
+function tearCard(){
+  document.getElementById("card").style.display="none";
+  document.getElementById("note").style.display="flex";
+  let msg="เค้ารักอ้วนนะ ถึงเราไม่ได้อยู่ด้วยกันในวันนี้ แต่เค้าสัญญาว่าสักวันเราจะได้อยู่ด้วยกันแบบแฮปปี้นะ 😘😘";
+  let i=0;
+  let interval=setInterval(()=>{
+    document.getElementById("noteText").innerText+=msg[i];
+    i++;
+    if(i>=msg.length) clearInterval(interval);
+  },50);
+}
+
+function showGift(){
+  document.getElementById("note").style.display="none";
+  document.getElementById("gift").style.display="flex";
+}
+
+function openGift(){
+  let interval=setInterval(()=>{
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerText="❤️";
+    h.style.left=Math.random()*100+"vw";
+    h.style.bottom="0px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),3000);
+  },100);
+  setTimeout(()=>{
+    clearInterval(interval);
+    document.getElementById("gift").style.display="none";
+    document.getElementById("videoBox").style.display="flex";
+  },3000);
 }
 </script>
-
 </body>
 </html>

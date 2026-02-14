@@ -343,14 +343,18 @@ function goLoveScreen(){
     setTimeout(()=>h.remove(),6000);
   },500);
 
-  // ช่อดอกไม้ 7 ช่อ
-  let flowers=["💐","🌹","🌷","🌸","🌼","🌺","🥀"];
+  // ช่อดอกไม้ 7 ช่อ (ดอกสุดท้ายใหญ่พิเศษ)
+  let flowers=["💐","🌹","🌷","🌸","🌼","🌺","🌻"];
   flowers.forEach((f,i)=>{
     setTimeout(()=>{
       let fl=document.createElement("div");
       fl.className="flower";
       fl.innerText=f;
       loveScreen.appendChild(fl);
+
+      if(i===flowers.length-1){
+        fl.style.fontSize="200px";
+      }
 
       setTimeout(()=>{
         fl.style.bottom="30%";
